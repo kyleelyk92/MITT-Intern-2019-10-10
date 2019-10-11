@@ -14,7 +14,7 @@ namespace MITT_Intern_2019_10_10.Controllers
     public class StudentsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-        
+
         // GET: Students
         public ActionResult Index()
         {
@@ -22,6 +22,21 @@ namespace MITT_Intern_2019_10_10.Controllers
         }
 
         // GET: Students/Details/5
+
+        public ActionResult DetailsShort(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Student student = db.Students.Find(id);
+            if (student == null)
+            {
+                return HttpNotFound();
+            }
+            return View(student);
+        }
+
         public ActionResult Details(string id)
         {
             if (id == null)
@@ -42,7 +57,7 @@ namespace MITT_Intern_2019_10_10.Controllers
             return View();
         }
 
-        
+
 
         // POST: Students/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
@@ -58,8 +73,6 @@ namespace MITT_Intern_2019_10_10.Controllers
                 //the controller gets generated with ApplicationUser, just switch that with whatever your model class is
                 Student s = new Student { UserName = student.Email, Email = student.Email };
 
-                
-                
                 db.Students.Add(s);
                 db.SaveChanges();
                 return RedirectToAction("Index");

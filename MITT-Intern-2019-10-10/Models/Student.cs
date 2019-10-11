@@ -9,6 +9,18 @@ namespace MITT_Intern_2019_10_10.Models
 {
     public class Student : ApplicationUser
     {
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public HashSet<Teacher> Teachers { get; set; }
+        public SchoolProgram SchoolProgram { get; set; }
+    }
+    public class StudentViewModel
+    {
+        public string Email { get; set; }
+        public string UserName { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+
     }
 
     public class StudentRegisterModel

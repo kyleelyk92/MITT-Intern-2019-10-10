@@ -7,5 +7,13 @@ namespace MITT_Intern_2019_10_10.Models
 {
     public class Company : ApplicationUser
     {
+        public Company()
+        {
+
+        }
+        public string CompanyName { get; set; }
+        public string Location { get; set; }
+        public HashSet<Posting> Postings { get; set; }
+
     }
 }

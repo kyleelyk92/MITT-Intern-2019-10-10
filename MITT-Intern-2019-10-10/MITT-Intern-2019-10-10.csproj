@@ -181,6 +181,8 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\OtherModels\Message.cs" />
     <Compile Include="Models\OtherModels\Resume.cs" />
+    <Compile Include="Models\Posting.cs" />
+    <Compile Include="Models\SchoolProgram.cs" />
     <Compile Include="Models\Student.cs" />
     <Compile Include="Models\Teacher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
