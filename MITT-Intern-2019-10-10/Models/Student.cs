@@ -9,8 +9,6 @@ namespace MITT_Intern_2019_10_10.Models
 {
     public class Student : ApplicationUser
     {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
         public HashSet<Teacher> Teachers { get; set; }
         public SchoolProgram SchoolProgram { get; set; }
     }

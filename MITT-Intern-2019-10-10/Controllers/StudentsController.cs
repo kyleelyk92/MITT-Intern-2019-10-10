@@ -29,6 +29,7 @@ namespace MITT_Intern_2019_10_10.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             Student student = db.Students.Find(id);
             if (student == null)
             {

@@ -11,8 +11,6 @@ namespace MITT_Intern_2019_10_10.Models
         {
             Students = new HashSet<Student>();
         }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
         public virtual SchoolProgram Program { get; set; }
         public HashSet<Student> Students { get; set; }
     }
