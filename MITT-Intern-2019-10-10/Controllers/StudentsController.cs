@@ -18,7 +18,7 @@ namespace MITT_Intern_2019_10_10.Controllers
         // GET: Students
         public ActionResult Index()
         {
-            return View(db.Users.ToList());
+            return View(db.Students.ToList());
         }
 
         // GET: Students/Details/5
@@ -28,7 +28,7 @@ namespace MITT_Intern_2019_10_10.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ApplicationUser student = db.Users.Find(id);
+            Student student = db.Students.Find(id);
             if (student == null)
             {
                 return HttpNotFound();
@@ -49,21 +49,23 @@ namespace MITT_Intern_2019_10_10.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async void Create([Bind(Include = "Email,UserName")] Student student)
+        public ActionResult Create([Bind(Include = "Email,UserName")] Student student)
         {
             if (ModelState.IsValid)
             {
-                var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(db));
+                //this is the way to make a new Student;
+                //you'll have to update every instance of ApplicationUser when a new controller is made
+                //the controller gets generated with ApplicationUser, just switch that with whatever your model class is
+                Student s = new Student { UserName = student.Email, Email = student.Email };
 
-                ApplicationUser s = new Student { UserName = student.Email, Email = student.Email };
-                var result = await manager.CreateAsync(s);
-
-                db.Users.Add(student);
+                
+                
+                db.Students.Add(s);
                 db.SaveChanges();
-                RedirectToAction("Index");
+                return RedirectToAction("Index");
             }
 
-            View(student);
+            return View(student);
         }
 
         // GET: Students/Edit/5
@@ -73,7 +75,7 @@ namespace MITT_Intern_2019_10_10.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ApplicationUser student = db.Users.Find(id);
+            Student student = db.Students.Find(id);
             if (student == null)
             {
                 return HttpNotFound();
@@ -104,7 +106,7 @@ namespace MITT_Intern_2019_10_10.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ApplicationUser student = db.Users.Find(id);
+            Student student = db.Students.Find(id);
             if (student == null)
             {
                 return HttpNotFound();
@@ -117,7 +119,7 @@ namespace MITT_Intern_2019_10_10.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
-            ApplicationUser student = db.Users.Find(id);
+            Student student = db.Students.Find(id);
             db.Users.Remove(student);
             db.SaveChanges();
             return RedirectToAction("Index");
