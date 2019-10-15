@@ -36,6 +36,42 @@
             <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
         </footer>
     </div>
+    <!-- this needs to get either removed or redone, because it's ugly and not in the CSS file, but it's an example to show julien-->
+    <div class="myLeftBar" style="top: 51px;
+    position: fixed;
+    left: 0;
+    background-color: green;
+    float: left;
+    height: 100vh;
+    z-index: 10000;
+    padding: 5px;
+    color: white;
+    display: flex;
+    padding: 15px;
+    max-width: 200px;
+    width: 13%;
+    flex-direction: column;
+
+">
+        <ul style="">
+            <li>Should @Html.ActionLink("Home", "Index", "Home")</li>
+        </ul>
+        <ul style="">
+            <li>We Make @Html.ActionLink("Home", "Index", "Home")</li>
+        </ul>
+        <ul style="">
+            <li>A border thing @Html.ActionLink("Home", "Index", "Home")</li>
+        </ul>
+        <ul style="">
+            <li>with links @Html.ActionLink("Home", "Index", "Home")</li>
+        </ul>
+        <ul style="">
+            <li>like this @Html.ActionLink("Home", "Index", "Home")</li>
+        </ul>
+        <ul style="">
+            <li>For each user @Html.ActionLink("Home", "Index", "Home")</li>
+        </ul>
+    </div>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
