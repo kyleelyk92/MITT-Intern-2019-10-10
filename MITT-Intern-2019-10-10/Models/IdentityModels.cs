@@ -30,7 +30,7 @@ namespace MITT_Intern_2019_10_10.Models
         public DbSet<Message> Messages { get; set; }
         public DbSet<Posting> Postings { get; set; }
         public DbSet<SchoolProgram> Programs { get; set; }
-
+        public DbSet<Round> Rounds { get; set; }
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {

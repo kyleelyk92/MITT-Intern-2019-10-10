@@ -6,135 +6,111 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using Microsoft.AspNet.Identity.EntityFramework;
 using MITT_Intern_2019_10_10.Models;
 
 namespace MITT_Intern_2019_10_10.Controllers
 {
-    public class StudentsController : Controller
+    public class TeachersController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Students
+        // GET: Teachers
         public ActionResult Index()
         {
-            return View(db.Students.ToList());
+            return View(db.Teachers.ToList());
         }
 
-        // GET: Students/Details/5
-
-        public ActionResult DetailsShort(string id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-
-            Student student = db.Students.Find(id);
-            if (student == null)
-            {
-                return HttpNotFound();
-            }
-            return View(student);
-        }
-
+        // GET: Teachers/Details/5
         public ActionResult Details(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Student student = db.Students.Find(id);
-            if (student == null)
+            Teacher teacher = db.Teachers.Find(id);
+            if (teacher == null)
             {
                 return HttpNotFound();
             }
-            return View(student);
+            return View(teacher);
         }
 
-        // GET: Students/Create
+        // GET: Teachers/Create
         public ActionResult Create()
         {
             return View();
         }
 
-
-
-        // POST: Students/Create
+        // POST: Teachers/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Email,FirstName,LastName,UserName")] Student student)
+        public ActionResult Create([Bind(Include = "FirstName,LastName,Email,UserName")] Teacher teacher)
         {
             if (ModelState.IsValid)
             {
-                //this is the way to make a new Student;
-                //you'll have to update every instance of ApplicationUser when a new controller is made
-                //the controller gets generated with ApplicationUser, just switch that with whatever your model class is
-                Student s = new Student { UserName = student.Email, Email = student.Email };
-
-                db.Students.Add(s);
+                db.Teachers.Add(teacher);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(student);
+            return View(teacher);
         }
 
-        // GET: Students/Edit/5
+        // GET: Teachers/Edit/5
         public ActionResult Edit(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Student student = db.Students.Find(id);
-            if (student == null)
+            Teacher teacher = db.Teachers.Find(id);
+            if (teacher == null)
             {
                 return HttpNotFound();
             }
-            return View(student);
+            return View(teacher);
         }
 
-        // POST: Students/Edit/5
+        // POST: Teachers/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] Student student)
+        public ActionResult Edit([Bind(Include = "Id,FirstName,LastName,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] Teacher teacher)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(student).State = EntityState.Modified;
+                db.Entry(teacher).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(student);
+            return View(teacher);
         }
 
-        // GET: Students/Delete/5
+        // GET: Teachers/Delete/5
         public ActionResult Delete(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Student student = db.Students.Find(id);
-            if (student == null)
+            Teacher teacher = db.Teachers.Find(id);
+            if (teacher == null)
             {
                 return HttpNotFound();
             }
-            return View(student);
+            return View(teacher);
         }
 
-        // POST: Students/Delete/5
+        // POST: Teachers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
-            Student student = db.Students.Find(id);
-            db.Users.Remove(student);
+            Teacher teacher = db.Teachers.Find(id);
+            db.Users.Remove(teacher);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
