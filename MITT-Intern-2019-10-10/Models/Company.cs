@@ -9,7 +9,7 @@ namespace MITT_Intern_2019_10_10.Models
     {
         public Company()
         {
-
+            Postings = new HashSet<Posting>();
         }
         public string CompanyName { get; set; }
         public string Location { get; set; }
