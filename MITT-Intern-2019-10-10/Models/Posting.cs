@@ -17,6 +17,5 @@ namespace MITT_Intern_2019_10_10.Models
         public SchoolProgram SchoolProgram { get; set; } 
         public DateTime PostingDate { get; set; }
         public DateTime ClosingDate { get; set; }
-
     }
 }

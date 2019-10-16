@@ -172,12 +172,17 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\StudentsController.cs" />
+    <Compile Include="Controllers\TeachersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Migrations\201910111846257_firstMigration.cs" />
     <Compile Include="Migrations\201910111846257_firstMigration.Designer.cs">
       <DependentUpon>201910111846257_firstMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910151946145_createdRounds.cs" />
+    <Compile Include="Migrations\201910151946145_createdRounds.Designer.cs">
+      <DependentUpon>201910151946145_createdRounds.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -188,6 +193,7 @@
     <Compile Include="Models\OtherModels\Message.cs" />
     <Compile Include="Models\OtherModels\Resume.cs" />
     <Compile Include="Models\Posting.cs" />
+    <Compile Include="Models\Round.cs" />
     <Compile Include="Models\SchoolProgram.cs" />
     <Compile Include="Models\Student.cs" />
     <Compile Include="Models\Teacher.cs" />
@@ -260,6 +266,11 @@
     <Content Include="Views\Companies\Details.cshtml" />
     <Content Include="Views\Companies\Edit.cshtml" />
     <Content Include="Views\Companies\Index.cshtml" />
+    <Content Include="Views\Teachers\Create.cshtml" />
+    <Content Include="Views\Teachers\Delete.cshtml" />
+    <Content Include="Views\Teachers\Details.cshtml" />
+    <Content Include="Views\Teachers\Edit.cshtml" />
+    <Content Include="Views\Teachers\Index.cshtml" /> 
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -280,6 +291,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201910111846257_firstMigration.resx">
       <DependentUpon>201910111846257_firstMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910151946145_createdRounds.resx">
+      <DependentUpon>201910151946145_createdRounds.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
