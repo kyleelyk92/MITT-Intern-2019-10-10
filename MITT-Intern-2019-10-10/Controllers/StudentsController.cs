@@ -6,7 +6,9 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
 using MITT_Intern_2019_10_10.Models;
 
 namespace MITT_Intern_2019_10_10.Controllers
@@ -14,6 +16,60 @@ namespace MITT_Intern_2019_10_10.Controllers
     public class StudentsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+
+        #region "ApplicationSignInManager and ApplicationUserManager"
+        //I took the code for the new signinmanager and usermanager from the account controller
+        //if we want, we can just do all of our signins from that controller
+        //otherwise, I have them imported to this controller in the sections about signinmanager/usermanager
+        private ApplicationSignInManager _signInManager;
+        private ApplicationUserManager _userManager;
+
+
+        //in order to get the sign in and user managers, create 2 constructors, one empty and one like the one below
+        public StudentsController()
+        {
+
+        }
+        //this constructor initializes the usermanager and signin manager elements
+        public StudentsController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        {
+            um = userManager;
+            sim = signInManager;
+        }
+
+        //this is the get and set methods for the sign in manager
+        // these are accessed when you want to use the sign in manager
+        public ApplicationSignInManager sim
+        {
+            get
+            {
+                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+            }
+            private set
+            {
+                _signInManager = value;
+            }
+        }
+        //this is the user manager, call it when you want to access the user manager functions 
+        //like 
+        //um.Create(new User)
+        public ApplicationUserManager um
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
+        #endregion
+
+
+
+
+
 
         // GET: Students
         public ActionResult Index()
@@ -65,7 +121,7 @@ namespace MITT_Intern_2019_10_10.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Email,FirstName,LastName,UserName")] Student student)
+        public ActionResult Create([Bind(Include = "Email,FirstName,LastName,UserName")] Student student, string password)
         {
             if (ModelState.IsValid)
             {
@@ -74,7 +130,10 @@ namespace MITT_Intern_2019_10_10.Controllers
                 //the controller gets generated with ApplicationUser, just switch that with whatever your model class is
                 Student s = new Student { UserName = student.Email, Email = student.Email };
 
-                db.Students.Add(s);
+
+                um.Create(s, password);
+
+                //db.Students.Add(s);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

@@ -48,7 +48,13 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.OracleClient" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -184,6 +190,10 @@
     <Compile Include="Migrations\201910151946145_createdRounds.Designer.cs">
       <DependentUpon>201910151946145_createdRounds.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201910161911405_addedStuffToCompany.cs" />
+    <Compile Include="Migrations\201910161911405_addedStuffToCompany.Designer.cs">
+      <DependentUpon>201910161911405_addedStuffToCompany.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Company.cs" />
@@ -270,7 +280,7 @@
     <Content Include="Views\Teachers\Delete.cshtml" />
     <Content Include="Views\Teachers\Details.cshtml" />
     <Content Include="Views\Teachers\Edit.cshtml" />
-    <Content Include="Views\Teachers\Index.cshtml" /> 
+    <Content Include="Views\Teachers\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -294,6 +304,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201910151946145_createdRounds.resx">
       <DependentUpon>201910151946145_createdRounds.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910161911405_addedStuffToCompany.resx">
+      <DependentUpon>201910161911405_addedStuffToCompany.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

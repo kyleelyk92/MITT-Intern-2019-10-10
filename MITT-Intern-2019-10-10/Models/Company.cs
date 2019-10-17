@@ -14,6 +14,7 @@ namespace MITT_Intern_2019_10_10.Models
         public string CompanyName { get; set; }
         public string Location { get; set; }
         public HashSet<Posting> Postings { get; set; }
+        public string BannerImagePath { get; set; }
 
     }
 }
