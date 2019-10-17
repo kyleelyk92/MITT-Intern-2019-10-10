@@ -194,6 +194,10 @@
     <Compile Include="Migrations\201910161911405_addedStuffToCompany.Designer.cs">
       <DependentUpon>201910161911405_addedStuffToCompany.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201910171801152_AddedSkillsAndUpdatedStudentClass.cs" />
+    <Compile Include="Migrations\201910171801152_AddedSkillsAndUpdatedStudentClass.Designer.cs">
+      <DependentUpon>201910171801152_AddedSkillsAndUpdatedStudentClass.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Company.cs" />
@@ -205,6 +209,7 @@
     <Compile Include="Models\Posting.cs" />
     <Compile Include="Models\Round.cs" />
     <Compile Include="Models\SchoolProgram.cs" />
+    <Compile Include="Models\Skill.cs" />
     <Compile Include="Models\Student.cs" />
     <Compile Include="Models\Teacher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -281,6 +286,7 @@
     <Content Include="Views\Teachers\Details.cshtml" />
     <Content Include="Views\Teachers\Edit.cshtml" />
     <Content Include="Views\Teachers\Index.cshtml" />
+    <Content Include="Views\Students\StudentProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -307,6 +313,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201910161911405_addedStuffToCompany.resx">
       <DependentUpon>201910161911405_addedStuffToCompany.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910171801152_AddedSkillsAndUpdatedStudentClass.resx">
+      <DependentUpon>201910171801152_AddedSkillsAndUpdatedStudentClass.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

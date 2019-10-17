@@ -31,6 +31,7 @@ namespace MITT_Intern_2019_10_10.Models
         public DbSet<Posting> Postings { get; set; }
         public DbSet<SchoolProgram> Programs { get; set; }
         public DbSet<Round> Rounds { get; set; }
+        public DbSet<Skill> Skills { get; set; }
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {

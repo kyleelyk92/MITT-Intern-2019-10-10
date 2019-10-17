@@ -33,13 +33,13 @@ namespace MITT_Intern_2019_10_10.Controllers
         //this constructor initializes the usermanager and signin manager elements
         public StudentsController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
-            um = userManager;
-            sim = signInManager;
+            Um = userManager;
+            Sim = signInManager;
         }
 
         //this is the get and set methods for the sign in manager
         // these are accessed when you want to use the sign in manager
-        public ApplicationSignInManager sim
+        public ApplicationSignInManager Sim
         {
             get
             {
@@ -53,7 +53,7 @@ namespace MITT_Intern_2019_10_10.Controllers
         //this is the user manager, call it when you want to access the user manager functions 
         //like 
         //um.Create(new User)
-        public ApplicationUserManager um
+        public ApplicationUserManager Um
         {
             get
             {
@@ -65,10 +65,6 @@ namespace MITT_Intern_2019_10_10.Controllers
             }
         }
         #endregion
-
-
-
-
 
 
         // GET: Students
@@ -131,7 +127,7 @@ namespace MITT_Intern_2019_10_10.Controllers
                 Student s = new Student { UserName = student.Email, Email = student.Email };
 
 
-                um.Create(s, password);
+                Um.Create(s, password);
 
                 //db.Students.Add(s);
                 db.SaveChanges();
@@ -144,6 +140,8 @@ namespace MITT_Intern_2019_10_10.Controllers
         // GET: Students/Edit/5
         public ActionResult Edit(string id)
         {
+            //5b8f32aa-6c35-4504-9cf3-82a64c3c800e is a student ID i can use for testing
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -205,6 +203,27 @@ namespace MITT_Intern_2019_10_10.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+
+        public ActionResult StudentProfile(string studentId)
+        {
+            Student s = db.Students.Find(studentId);
+
+            StudentViewModel svm = new StudentViewModel()
+            {
+                Bio = s.Bio,
+                Email = s.Email,
+                FirstName = s.FirstName,
+                LastName = s.LastName,
+                SchoolProgram = s.SchoolProgram,
+                HeaderImage = s.HeaderImage,
+                ProfileImage = s.ProfileImage,
+                Skills = s.Skills,
+                UserName = s.UserName
+            };
+
+            return View(svm);
         }
     }
 }

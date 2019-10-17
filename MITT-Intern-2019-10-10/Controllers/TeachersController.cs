@@ -7,12 +7,57 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MITT_Intern_2019_10_10.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace MITT_Intern_2019_10_10.Controllers
 {
     public class TeachersController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        private ApplicationSignInManager _signInManager;
+        private ApplicationUserManager _userManager;
+
+        #region "Controllers and signinmanager usermanager"
+        public TeachersController()
+        {
+
+        }
+
+        public TeachersController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        {
+            Um = userManager;
+            Sim = signInManager;
+        }
+        public ApplicationSignInManager Sim
+        {
+            get
+            {
+                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+            }
+            private set
+            {
+                _signInManager = value;
+            }
+        }
+        //this is the user manager, call it when you want to access the user manager functions 
+        //like 
+        //um.Create(new User)
+        public ApplicationUserManager Um
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
+
+        #endregion
+
 
         // GET: Teachers
         public ActionResult Index()
@@ -50,7 +95,7 @@ namespace MITT_Intern_2019_10_10.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Teachers.Add(teacher);
+                Um.Create(teacher, "Password1!");
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
