@@ -11,6 +11,7 @@ namespace MITT_Intern_2019_10_10.Models
         {
             Postings = new HashSet<Posting>();
         }
+
         public string CompanyName { get; set; }
         public string Location { get; set; }
         public HashSet<Posting> Postings { get; set; }
