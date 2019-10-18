@@ -10,6 +10,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using MITT_Intern_2019_10_10.Models;
+using System.IO;
+
 
 namespace MITT_Intern_2019_10_10.Controllers
 {
@@ -159,7 +161,7 @@ namespace MITT_Intern_2019_10_10.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] Student student)
+        public ActionResult Edit([Bind(Include = "Id,FirstName,LastName,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName,Bio,ProfileImage,HeaderImage,Skills,SchoolProgram,Teachers")] Student student)
         {
             if (ModelState.IsValid)
             {
@@ -205,11 +207,16 @@ namespace MITT_Intern_2019_10_10.Controllers
             base.Dispose(disposing);
         }
 
-
+        
         public ActionResult StudentProfile(string studentId)
         {
+            //5b8f32aa-6c35-4504-9cf3-82a64c3c800e
+            if (studentId == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             Student s = db.Students.Find(studentId);
-
+            
             StudentViewModel svm = new StudentViewModel()
             {
                 Bio = s.Bio,
@@ -224,6 +231,33 @@ namespace MITT_Intern_2019_10_10.Controllers
             };
 
             return View(svm);
+        }
+
+
+        public ActionResult PracticeFileUpload()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult PracticeFileUpload(HttpPostedFileBase file)
+        {
+            
+            //TODO: Finish this and the helper function;
+            //need to figure out the file paths properly
+            if(file != null)
+            {
+                string pic = Path.GetFileName(file.FileName);
+                string path = Path.Combine(Server.MapPath("~/images/profile"), pic);
+                // file is uploaded
+                file.SaveAs(path);
+
+                
+
+                var user = db.Users.Find(User.Identity.GetUserId());
+                Helper.SaveFileFromUser(user, file, path);
+            }
+            return RedirectToAction("Index", "Students");
         }
     }
 }

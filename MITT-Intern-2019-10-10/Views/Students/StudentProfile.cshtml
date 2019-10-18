@@ -7,4 +7,16 @@
 <h2>StudentProfile</h2>
 
 @Html.NameFor(model => model.Bio)
-@Html.LabelFor(model => model.Bio)
+
+<div>
+    @Html.LabelFor(model => model.Bio)
+
+</div>
+
+@Html.NameFor(model => model.FirstName)
+@Html.LabelFor(model => model.FirstName)
+@Html.DisplayFor(model => model.FirstName)
+
+@Html.NameFor(model => model.LastName)
+@Html.LabelFor(model => model.LastName)
+@Html.DisplayFor(model => model.LastName)

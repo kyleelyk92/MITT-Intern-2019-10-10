@@ -198,6 +198,10 @@
     <Compile Include="Migrations\201910171801152_AddedSkillsAndUpdatedStudentClass.Designer.cs">
       <DependentUpon>201910171801152_AddedSkillsAndUpdatedStudentClass.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201910181903385_notsurewhatsinhere.cs" />
+    <Compile Include="Migrations\201910181903385_notsurewhatsinhere.Designer.cs">
+      <DependentUpon>201910181903385_notsurewhatsinhere.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Company.cs" />
@@ -274,7 +278,6 @@
     <Content Include="Views\Students\Create.cshtml" />
     <Content Include="Views\Students\Delete.cshtml" />
     <Content Include="Views\Students\Details.cshtml" />
-    <Content Include="Views\Students\Edit.cshtml" />
     <Content Include="Views\Students\Index.cshtml" />
     <Content Include="Views\Companies\Create.cshtml" />
     <Content Include="Views\Companies\Delete.cshtml" />
@@ -287,9 +290,12 @@
     <Content Include="Views\Teachers\Edit.cshtml" />
     <Content Include="Views\Teachers\Index.cshtml" />
     <Content Include="Views\Students\StudentProfile.cshtml" />
+    <Content Include="Views\Students\Edit.cshtml" />
+    <Content Include="Views\Students\PracticeFileUpload.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <Folder Include="App_Data\App_LocalResources\" />
+    <Folder Include="Images\Profile\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -316,6 +322,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201910171801152_AddedSkillsAndUpdatedStudentClass.resx">
       <DependentUpon>201910171801152_AddedSkillsAndUpdatedStudentClass.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910181903385_notsurewhatsinhere.resx">
+      <DependentUpon>201910181903385_notsurewhatsinhere.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

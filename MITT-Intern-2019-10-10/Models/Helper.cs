@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
-
+using System.Web.UI.WebControls;
+using System.Web.Mvc;
 namespace MITT_Intern_2019_10_10.Models
 {
     public class Helper
@@ -19,15 +20,13 @@ namespace MITT_Intern_2019_10_10.Models
 
 
 
-        public static void SaveFileFromUser(ApplicationUser user, string fileStreamGoesHere)
+        public static void SaveFileFromUser(ApplicationUser user, HttpPostedFileBase file, string filepath)
         {
-            var u = user;
-            string firstTryBase = HttpContext.Current.Server.MapPath("~") + "uploads";
+            string userName = user.UserName;
 
-            
-
-            string directory = Environment.CurrentDirectory;
-            //System.IO.Directory.CreateDirectory("~/");
+            string path = Path.Combine(Server.MapPath("~/images/profile"), pic);
         }
+
+
     }
 }
