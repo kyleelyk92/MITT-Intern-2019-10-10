@@ -6,7 +6,11 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
+using Microsoft.AspNetCore.Identity;
 using MITT_Intern_2019_10_10.Models;
 
 namespace MITT_Intern_2019_10_10.Controllers
@@ -14,6 +18,8 @@ namespace MITT_Intern_2019_10_10.Controllers
     public class StudentsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        ApplicationUserManager userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+
 
         // GET: Students
         public ActionResult Index()
@@ -73,6 +79,7 @@ namespace MITT_Intern_2019_10_10.Controllers
                 //you'll have to update every instance of ApplicationUser when a new controller is made
                 //the controller gets generated with ApplicationUser, just switch that with whatever your model class is
                 Student s = new Student { UserName = student.Email, Email = student.Email };
+                userManager.CreateAsync(s, "Test1234");
 
                 db.Students.Add(s);
                 db.SaveChanges();
@@ -146,6 +153,27 @@ namespace MITT_Intern_2019_10_10.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public ActionResult Info(string id)
+        {
+            ViewBag.CurrentVisitingId = User.Identity.GetUserId();
+
+            var s = db.Students.Find("51eb5a07-847a-42a1-ba55-d77ccb12c707");
+
+            userManager.AddPassword(s.Id, "Test1234");
+
+
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Student student = db.Students.Find(id);
+            if (student == null)
+            {
+                return HttpNotFound();
+            }
+            return View(student);
         }
     }
 }
