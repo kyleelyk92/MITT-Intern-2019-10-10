@@ -1,8 +1,11 @@
-﻿using MITT_Intern_2019_10_10.Models;
+﻿using Microsoft.AspNet.Identity.Owin;
+using MITT_Intern_2019_10_10.Models;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 
 namespace MITT_Intern_2019_10_10.Controllers
 {
@@ -10,7 +13,46 @@ namespace MITT_Intern_2019_10_10.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        public ApplicationUserManager _userManager { get; set; }
+        public ApplicationSignInManager _signInManager { get; set; }
+
         // GET: Companies
+        public CompaniesController()
+        {
+
+        }
+        public CompaniesController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        {
+            _userManager = userManager;
+            _signInManager = signInManager;
+        }
+
+        public ApplicationSignInManager SIM
+        {
+            get
+            {
+                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+            }
+            private set
+            {
+                _signInManager = value;
+            }
+        }
+        //this is the user manager, call it when you want to access the user manager functions 
+        //like 
+        //um.Create(new User)
+        public ApplicationUserManager UM
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
+
         public ActionResult Index()
         {
             return View(db.Companies.ToList());
@@ -46,7 +88,8 @@ namespace MITT_Intern_2019_10_10.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Companies.Add(company);
+                UM.Create(company, "Password1!");
+                
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

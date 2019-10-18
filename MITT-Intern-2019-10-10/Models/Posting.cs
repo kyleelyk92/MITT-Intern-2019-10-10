@@ -11,6 +11,7 @@ namespace MITT_Intern_2019_10_10.Models
         {
 
         }
+
         public int Id { get; set; }
         public string Title { get; set; }
         public string Content { get; set; }

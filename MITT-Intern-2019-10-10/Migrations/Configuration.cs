@@ -19,36 +19,40 @@ namespace MITT_Intern_2019_10_10.Migrations
         {
             var db = context;
             //  This method will be called after migrating to the latest version.
-
+            
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
             //  to avoid creating duplicate seed data.
-            var kyle = new Student() { UserName = "KyleE", Email = "kyleelyk92@hotmail.com", FirstName = "Kyle", LastName = "Elyk" };
-            var company1 = new Company() { UserName = "Company1Name", Email = "firstEmail@Company.com"};
-            db.Students.AddOrUpdate(
-                x => x.UserName,
-                kyle,
-                new Student() { UserName = "JulienM", Email = "jm@hotmail.com", FirstName = "Julien", LastName = "Martel" },
-                new Student() { UserName = "Farcas1235", Email = "fac@hmail.com", FirstName = "Farc", LastName = "As" }
-                ); ;
-            db.Companies.AddOrUpdate(x => x.CompanyName,
-                new Company() { UserName = "GQ Mag", Email = "gq@gq.com" },
-                new Company() { UserName = "Bold Content BS", Email = "BOLD@bold.com" }
-                );
-            db.Programs.AddOrUpdate(x => x.Title,
-                new SchoolProgram() { Title = "Software Developer"},
+
+            if (!context.Users.Any(u => u.UserName == "KyleE"))
+            {
+                var store = new UserStore<ApplicationUser>(context);
+                var usermanager = new UserManager<ApplicationUser>(store);
+
+                var kyle = new Student() { UserName = "KyleE", Email = "kyleelyk92@hotmail.com", FirstName = "Kyle", LastName = "Elyk" };
+                usermanager.Create(kyle, "Password1!");
+                usermanager.Create(new Student() { UserName = "JulienM", Email = "jm@hotmail.com", FirstName = "Julien", LastName = "Martel" }, "Password1!");
+                usermanager.Create(new Student() { UserName = "Farcas1235", Email = "fac@hmail.com", FirstName = "Farc", LastName = "As" }, "Password1!");
+
+                var company1 = new Company() { UserName = "Company1Name", Email = "firstEmail@Company.com" };
+                usermanager.Create(company1, "Password1!");
+                usermanager.Create(new Company() { UserName = "GQ Mag", Email = "gq@gq.com" });
+                usermanager.Create(new Company() { UserName = "Bold Content BS", Email = "BOLD@bold.com" });
+
+                db.Programs.AddOrUpdate(x => x.Title,
+                new SchoolProgram() { Title = "Software Developer" },
                 new SchoolProgram() { Title = "Culinary" },
                 new SchoolProgram() { Title = "Automotive" }
                 );
-            kyle.SchoolProgram = new SchoolProgram() { Title = "Kyles special program" };
+            }
 
             if (!context.Roles.Any(r => r.Name == "Admin"))
             {
                 var store = new RoleStore<IdentityRole>(context);
-                var manager = new RoleManager<IdentityRole>(store);
-                manager.Create(new IdentityRole { Name = "Admin" });
-                manager.Create(new IdentityRole { Name = "Student" });
-                manager.Create(new IdentityRole { Name = "Company" });
-                manager.Create(new IdentityRole { Name = "Teacher" });
+                var roleManager = new RoleManager<IdentityRole>(store);
+                roleManager.Create(new IdentityRole { Name = "Admin" });
+                roleManager.Create(new IdentityRole { Name = "Student" });
+                roleManager.Create(new IdentityRole { Name = "Company" });
+                roleManager.Create(new IdentityRole { Name = "Teacher" });
             }
             db.SaveChanges();
         }
