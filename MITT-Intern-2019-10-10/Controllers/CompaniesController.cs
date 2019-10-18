@@ -162,5 +162,27 @@ namespace MITT_Intern_2019_10_10.Controllers
             }
             base.Dispose(disposing);
         }
+
+        public ActionResult CompanyProfile(string id)
+        {
+            ViewBag.CurrentVisitingId = User.Identity.GetUserId();
+
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Company c = db.Companies.Find(id);
+            if (c == null)
+            {
+                return HttpNotFound();
+            }
+
+            CompanyViewModel cvm = new CompanyViewModel()
+            {
+                
+            };
+
+            return View(cvm);
+        }
     }
 }
