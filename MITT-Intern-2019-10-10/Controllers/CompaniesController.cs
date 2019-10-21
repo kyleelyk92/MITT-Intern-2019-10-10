@@ -179,10 +179,16 @@ namespace MITT_Intern_2019_10_10.Controllers
 
             CompanyViewModel cvm = new CompanyViewModel()
             {
-                
+                Bio = c.Bio,
+                Email = c.Email,
+                HeaderImage = c.HeaderImage,
+                ProfileImage = c.ProfileImage,
+                UserName = c.UserName
             };
 
             return View(cvm);
         }
+
+      
     }
 }

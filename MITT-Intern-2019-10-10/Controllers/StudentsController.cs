@@ -241,28 +241,7 @@ namespace MITT_Intern_2019_10_10.Controllers
             return View(svm);
         }
 
-        public ActionResult Info(string id)
-        {
-            ViewBag.CurrentVisitingId = User.Identity.GetUserId();
 
-            var s = db.Students.Find("51eb5a07-847a-42a1-ba55-d77ccb12c707");
-
-            userManager.AddPassword(s.Id, "Test1234");
-
-
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Student student = db.Students.Find(id);
-            if (student == null)
-            {
-                return HttpNotFound();
-            }
-            return View(student);
-        }
-
-        [Authorize]
         public ActionResult PracticeFileUpload()
         {
             var checkthis = Server.MapPath("~");

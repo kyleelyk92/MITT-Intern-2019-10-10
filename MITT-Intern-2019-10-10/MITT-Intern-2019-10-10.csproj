@@ -254,6 +254,10 @@
     <Compile Include="Migrations\201910181903385_notsurewhatsinhere.Designer.cs">
       <DependentUpon>201910181903385_notsurewhatsinhere.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201910211621358_MovedImagesFromStudentToApplicationUser.cs" />
+    <Compile Include="Migrations\201910211621358_MovedImagesFromStudentToApplicationUser.Designer.cs">
+      <DependentUpon>201910211621358_MovedImagesFromStudentToApplicationUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Company.cs" />
@@ -344,6 +348,7 @@
     <Content Include="Views\Students\StudentProfile.cshtml" />
     <Content Include="Views\Students\Edit.cshtml" />
     <Content Include="Views\Students\PracticeFileUpload.cshtml" />
+    <Content Include="Views\Companies\CompanyProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\App_LocalResources\" />
@@ -377,6 +382,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201910181903385_notsurewhatsinhere.resx">
       <DependentUpon>201910181903385_notsurewhatsinhere.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910211621358_MovedImagesFromStudentToApplicationUser.resx">
+      <DependentUpon>201910211621358_MovedImagesFromStudentToApplicationUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
