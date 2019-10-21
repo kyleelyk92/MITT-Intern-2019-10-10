@@ -32,14 +32,14 @@ namespace MITT_Intern_2019_10_10.Models
 
             if(fileExtension == "jpg" || fileExtension == "jpeg" || fileExtension == "png")
             {
-                filetype = "image";
+                filetype = "images";
             }
             if(fileExtension == "pdf")
             {
                 filetype = "resume";
             }
 
-            var fullpath = Path.Combine(basepath, userId, file.FileName);
+            var fullpath = Path.Combine(basepath, "uploads", userId, filetype, file.FileName);
 
             file.SaveAs(fullpath);
 
