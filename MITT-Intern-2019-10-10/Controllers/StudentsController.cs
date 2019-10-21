@@ -258,9 +258,10 @@ namespace MITT_Intern_2019_10_10.Controllers
             return View(student);
         }
 
-
+        [Authorize]
         public ActionResult PracticeFileUpload()
         {
+            var checkthis = Server.MapPath("~");
             return View();
         }
 
@@ -273,14 +274,13 @@ namespace MITT_Intern_2019_10_10.Controllers
             if(file != null)
             {
                 string pic = Path.GetFileName(file.FileName);
-                string path = Path.Combine(Server.MapPath("~/images/profile"), pic);
                 // file is uploaded
-                file.SaveAs(path);
 
                 
 
                 var user = db.Users.Find(User.Identity.GetUserId());
-                Helper.SaveFileFromUser(user, file, path);
+                //this takes a userId, the httppostedbasefile, and the base path of whatever controller you're in
+                Helper.SaveFileFromUser(user.Id, file, Server.MapPath("~"));
             }
             return RedirectToAction("Index", "Students");
         }

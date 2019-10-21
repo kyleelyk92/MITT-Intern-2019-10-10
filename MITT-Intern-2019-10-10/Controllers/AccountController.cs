@@ -72,10 +72,14 @@ namespace MITT_Intern_2019_10_10.Controllers
             {
                 return View(model);
             }
+            ApplicationDbContext db = new ApplicationDbContext();
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            var user = db.Users.Where(u => u.Email == model.Email).First();
+            var result = SignInManager.PasswordSignIn(user.UserName, model.Password, true, false);
+
+
             switch (result)
             {
                 case SignInStatus.Success:

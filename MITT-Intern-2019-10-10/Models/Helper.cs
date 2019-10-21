@@ -20,11 +20,29 @@ namespace MITT_Intern_2019_10_10.Models
 
 
 
-        public static void SaveFileFromUser(ApplicationUser user, HttpPostedFileBase file, string filepath)
+        public static void SaveFileFromUser(string userId, HttpPostedFileBase file, string basepath)
         {
-            string userName = user.UserName;
+            string saveId = userId;
+            string filetype = "";
 
-            string path = Path.Combine(Server.MapPath("~/images/profile"), pic);
+            //filepath goes like this
+            //~\\uploads\\ID\\images OR ~\\uploads\\ID\\resume
+
+            string fileExtension = file.FileName.Substring(file.FileName.LastIndexOf(".") + 1);
+
+            if(fileExtension == "jpg" || fileExtension == "jpeg" || fileExtension == "png")
+            {
+                filetype = "image";
+            }
+            if(fileExtension == "pdf")
+            {
+                filetype = "resume";
+            }
+
+            var fullpath = Path.Combine(basepath, userId, file.FileName);
+
+            file.SaveAs(fullpath);
+
         }
 
 
