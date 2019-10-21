@@ -12,6 +12,8 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.AspNetCore.Identity;
 using MITT_Intern_2019_10_10.Models;
+using System.IO;
+
 
 namespace MITT_Intern_2019_10_10.Controllers
 {
@@ -163,7 +165,7 @@ namespace MITT_Intern_2019_10_10.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] Student student)
+        public ActionResult Edit([Bind(Include = "Id,FirstName,LastName,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName,Bio,ProfileImage,HeaderImage,Skills,SchoolProgram,Teachers")] Student student)
         {
             if (ModelState.IsValid)
             {
@@ -222,7 +224,7 @@ namespace MITT_Intern_2019_10_10.Controllers
             {
                 return HttpNotFound();
             }
-
+            
             StudentViewModel svm = new StudentViewModel()
             {
                 Bio = s.Bio,
@@ -237,6 +239,54 @@ namespace MITT_Intern_2019_10_10.Controllers
             };
 
             return View(svm);
+        }
+
+        public ActionResult Info(string id)
+        {
+            ViewBag.CurrentVisitingId = User.Identity.GetUserId();
+
+            var s = db.Students.Find("51eb5a07-847a-42a1-ba55-d77ccb12c707");
+
+            userManager.AddPassword(s.Id, "Test1234");
+
+
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Student student = db.Students.Find(id);
+            if (student == null)
+            {
+                return HttpNotFound();
+            }
+            return View(student);
+        }
+
+
+        public ActionResult PracticeFileUpload()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult PracticeFileUpload(HttpPostedFileBase file)
+        {
+            
+            //TODO: Finish this and the helper function;
+            //need to figure out the file paths properly
+            if(file != null)
+            {
+                string pic = Path.GetFileName(file.FileName);
+                string path = Path.Combine(Server.MapPath("~/images/profile"), pic);
+                // file is uploaded
+                file.SaveAs(path);
+
+                
+
+                var user = db.Users.Find(User.Identity.GetUserId());
+                Helper.SaveFileFromUser(user, file, path);
+            }
+            return RedirectToAction("Index", "Students");
         }
     }
 }
