@@ -36,9 +36,6 @@ namespace MITT_Intern_2019_10_10.Migrations
 
                 var thisoneworks = usermanager.Create(new Company() { UserName = "Companymadename", Email = "CompanyEmail" }, "Password1!");
 
-                var thisonedoesnt = usermanager.Create(company2, "Password1!");
-
-                usermanager.Create(company3, "Password1!");
                 usermanager.Create(company1, "Password1!");
                 usermanager.Create(new Company() { UserName = "GQMag", Email = "gq@gq.com" }, "Password1!");
                 usermanager.Create(new Company() { UserName = "BoldContentBS", Email = "BOLD@bold.com" }, "Password1!");

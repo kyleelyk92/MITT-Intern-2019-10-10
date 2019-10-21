@@ -18,13 +18,9 @@ namespace MITT_Intern_2019_10_10.Models
             return manager;
         }
 
-
-
         public static void SaveFileFromUser(ApplicationUser user, HttpPostedFileBase file, string filepath)
         {
-            string userName = user.UserName;
 
-            string path = Path.Combine(Server.MapPath("~/images/profile"), pic);
         }
 
 

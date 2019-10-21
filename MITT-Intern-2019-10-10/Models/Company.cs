@@ -11,7 +11,6 @@ namespace MITT_Intern_2019_10_10.Models
         {
             Postings = new HashSet<Posting>();
         }
-
         public string CompanyName { get; set; }
         public string Location { get; set; }
         public HashSet<Posting> Postings { get; set; }
@@ -22,8 +21,15 @@ namespace MITT_Intern_2019_10_10.Models
 
     public class CompanyViewModel
     {
-
-
-
+        public string Id { get; set; }
+        public string Email { get; set; }
+        public string UserName { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public SchoolProgram SchoolProgram { get; set; }
+        public string ProfileImage { get; set; }
+        public string HeaderImage { get; set; }
+        public string Bio { get; set; }
+        public List<Skill> Skills { get; set; }
     }
 }
