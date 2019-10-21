@@ -39,7 +39,7 @@ namespace MITT_Intern_2019_10_10.Models
                 filetype = "resume";
             }
 
-            var fullpath = Path.Combine(basepath, userId, file.FileName);
+            var fullpath = Path.Combine(basepath, "uploads", userId, filetype, file.FileName);
 
             file.SaveAs(fullpath);
 
