@@ -211,15 +211,19 @@ namespace MITT_Intern_2019_10_10.Controllers
             base.Dispose(disposing);
         }
 
-        
-        public ActionResult StudentProfile(string studentId)
+        public ActionResult StudentProfile(string id)
         {
-            //5b8f32aa-6c35-4504-9cf3-82a64c3c800e
-            if (studentId == null)
+            ViewBag.CurrentVisitingId = User.Identity.GetUserId();
+
+            if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Student s = db.Students.Find(studentId);
+            Student s = db.Students.Find(id);
+            if (s == null)
+            {
+                return HttpNotFound();
+            }
             
             StudentViewModel svm = new StudentViewModel()
             {

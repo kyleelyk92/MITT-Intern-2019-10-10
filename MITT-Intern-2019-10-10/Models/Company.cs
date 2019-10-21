@@ -18,4 +18,12 @@ namespace MITT_Intern_2019_10_10.Models
         public string BannerImagePath { get; set; }
 
     }
+
+
+    public class CompanyViewModel
+    {
+
+
+
+    }
 }
