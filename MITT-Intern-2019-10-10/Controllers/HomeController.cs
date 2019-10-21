@@ -31,5 +31,11 @@ namespace MITT_Intern_2019_10_10.Controllers
 
             return View();
         }
+        [HttpGet]
+        public ActionResult MessagePage(string Message, object messageValues)
+        {
+            ViewBag.Message = Message;
+            return View();
+        }
     }
 }

@@ -39,10 +39,19 @@ namespace MITT_Intern_2019_10_10.Models
                 filetype = "resume";
             }
 
-            var fullpath = Path.Combine(basepath, "uploads", userId, filetype, file.FileName);
+            string pathend = String.Format("uploads\\{0}\\{1}\\{2}", saveId, filetype, file.FileName);
+            var fullpath = Path.Combine(basepath, pathend);
+            string fullDirectoryName = basepath + String.Format("uploads\\{0}\\{1}", saveId, filetype);
 
-            file.SaveAs(fullpath);
-
+            if (Directory.Exists(fullDirectoryName))
+            {
+                file.SaveAs(fullpath);
+            }
+            else
+            {
+                Directory.CreateDirectory(fullDirectoryName);
+                file.SaveAs(fullpath);
+            }
         }
 
 
