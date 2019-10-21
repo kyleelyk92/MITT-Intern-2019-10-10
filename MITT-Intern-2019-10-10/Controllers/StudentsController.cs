@@ -251,21 +251,20 @@ namespace MITT_Intern_2019_10_10.Controllers
         [HttpPost]
         public ActionResult PracticeFileUpload(HttpPostedFileBase file)
         {
-            
-            //TODO: Finish this and the helper function;
-            //need to figure out the file paths properly
-            if(file != null)
+            try
             {
-                string pic = Path.GetFileName(file.FileName);
-                // file is uploaded
-
-                
-
-                var user = db.Users.Find(User.Identity.GetUserId());
-                //this takes a userId, the httppostedbasefile, and the base path of whatever controller you're in
-                Helper.SaveFileFromUser(user.Id, file, Server.MapPath("~"));
+                if (file != null)
+                {
+                    var user = db.Users.Find(User.Identity.GetUserId());
+                    //this takes a userId, the httppostedbasefile, and the base path of whatever controller you're in
+                    Helper.SaveFileFromUser(user.Id, file, Server.MapPath("~"));
+                }
+                return RedirectToAction("Index", "Students");
             }
-            return RedirectToAction("Index", "Students");
+            catch
+            {
+                return RedirectToAction("MessagePage", "Home", new { Error = "Error uploading file, try again" });
+            }
         }
     }
 }

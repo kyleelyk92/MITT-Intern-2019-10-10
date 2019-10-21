@@ -264,6 +264,7 @@
     <Compile Include="Models\Helper.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\MessageObject.cs" />
     <Compile Include="Models\OtherModels\Message.cs" />
     <Compile Include="Models\OtherModels\Resume.cs" />
     <Compile Include="Models\Posting.cs" />
@@ -349,6 +350,7 @@
     <Content Include="Views\Students\Edit.cshtml" />
     <Content Include="Views\Students\PracticeFileUpload.cshtml" />
     <Content Include="Views\Companies\CompanyProfile.cshtml" />
+    <Content Include="Views\Home\MessagePage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\App_LocalResources\" />
