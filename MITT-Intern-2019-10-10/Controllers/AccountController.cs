@@ -77,6 +77,7 @@ namespace MITT_Intern_2019_10_10.Controllers
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var user = db.Users.Where(u => u.Email == model.Email).First();
+
             var result = SignInManager.PasswordSignIn(user.UserName, model.Password, true, false);
 
 

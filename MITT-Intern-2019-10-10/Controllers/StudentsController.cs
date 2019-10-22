@@ -126,20 +126,13 @@ namespace MITT_Intern_2019_10_10.Controllers
         {
             if (ModelState.IsValid)
             {
-                //this is the way to make a new Student;
-                //you'll have to update every instance of ApplicationUser when a new controller is made
-                //the controller gets generated with ApplicationUser, just switch that with whatever your model class is
                 Student s = new Student { UserName = student.Email, Email = student.Email };
                 userManager.CreateAsync(s, "Test1234");
 
-
                 Um.Create(s, password);
-
-                //db.Students.Add(s);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
             return View(student);
         }
 
@@ -147,12 +140,12 @@ namespace MITT_Intern_2019_10_10.Controllers
         public ActionResult Edit(string id)
         {
             //5b8f32aa-6c35-4504-9cf3-82a64c3c800e is a student ID i can use for testing
-
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Student student = db.Students.Find(id);
+
             if (student == null)
             {
                 return HttpNotFound();
@@ -165,10 +158,47 @@ namespace MITT_Intern_2019_10_10.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,FirstName,LastName,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName,Bio,ProfileImage,HeaderImage,Skills,SchoolProgram,Teachers")] Student student)
+        public ActionResult Edit([Bind(Include = "Id,FirstName,LastName,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName,Bio,Skills,SchoolProgram,Teachers")] Student student, HttpPostedFileBase profileImage, HttpPostedFileBase headerImage)
         {
             if (ModelState.IsValid)
             {
+                //delete old profile image and replace it with the new one
+                if (profileImage != null)
+                {
+                    Helper.SaveFileFromUser(student.Id, profileImage, Server.MapPath("~"), "profile");
+
+                    var allFiles = Directory.GetFiles(Server.MapPath("~") + String.Format("uploads\\{0}\\profileImage\\", student.Id));
+                    //this function deletes all the files in the folder and replaces it with the right one
+                    //everybody can only have one file of each type
+                    foreach (var file in allFiles)
+                    {
+                        if (System.IO.File.Exists(file) && !file.Contains(profileImage.FileName))
+                        {
+                            System.IO.File.Delete(file);
+                        }
+                    }
+                    student.ProfileImage = profileImage.FileName;
+                }
+                //delete old header image and replace it with the new one
+                if(headerImage != null)
+                {
+                    //run the helper to save a file first, in case it breaks
+                    Helper.SaveFileFromUser(student.Id, headerImage, Server.MapPath("~"), "header");
+
+                    var allFiles = Directory.GetFiles(Server.MapPath("~") + String.Format("uploads\\{0}\\headerImage\\", student.Id));
+                    
+                    foreach (var file in allFiles)
+                    {
+                        
+                     //this loop deletes all the files in the folder and replaces it with the right one
+                     //everybody can only have one file of each type
+                        if (System.IO.File.Exists(file) && !file.Contains(headerImage.FileName))
+                        {
+                            System.IO.File.Delete(file);
+                        }
+                    }
+                    student.HeaderImage = headerImage.FileName;
+                }
                 db.Entry(student).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -257,7 +287,7 @@ namespace MITT_Intern_2019_10_10.Controllers
                 {
                     var user = db.Users.Find(User.Identity.GetUserId());
                     //this takes a userId, the httppostedbasefile, and the base path of whatever controller you're in
-                    Helper.SaveFileFromUser(user.Id, file, Server.MapPath("~"));
+                    //Helper.SaveFileFromUser(user.Id, file, Server.MapPath("~"));
                 }
                 return RedirectToAction("Index", "Students");
             }
