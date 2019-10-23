@@ -12,7 +12,7 @@ namespace MITT_Intern_2019_10_10.Models
     {   //TODO: Add some helper functions if I need them later;
         //things like, instaniate a new UserManager, stuff like that
         //maybe a random function, those are fun
-        public ApplicationUserManager GetUserManager()
+        public static ApplicationUserManager GetUserManager()
         {
             var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(new ApplicationDbContext()));
             return manager;
@@ -20,7 +20,7 @@ namespace MITT_Intern_2019_10_10.Models
 
 
 
-        public static void SaveFileFromUser(string userId, HttpPostedFileBase file, string basepath)
+        public static void SaveFileFromUser(string userId, HttpPostedFileBase file, string basepath, string profileImageOrHeader)
         {
             string saveId = userId;
             string filetype = "";
@@ -32,7 +32,13 @@ namespace MITT_Intern_2019_10_10.Models
 
             if(fileExtension == "jpg" || fileExtension == "jpeg" || fileExtension == "png")
             {
-                filetype = "images";
+                if(profileImageOrHeader == "header")
+                {
+                    filetype = "headerImage";
+                }else if(profileImageOrHeader == "profile")
+                {
+                    filetype = "profileImage";
+                }
             }
             if(fileExtension == "pdf")
             {
@@ -41,6 +47,7 @@ namespace MITT_Intern_2019_10_10.Models
 
             string pathend = String.Format("uploads\\{0}\\{1}\\{2}", saveId, filetype, file.FileName);
             var fullpath = Path.Combine(basepath, pathend);
+
             string fullDirectoryName = basepath + String.Format("uploads\\{0}\\{1}", saveId, filetype);
 
             if (Directory.Exists(fullDirectoryName))
