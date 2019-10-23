@@ -4,57 +4,86 @@
     ViewBag.Title = "CompanyProfile";
 }
 
-<h2>CompanyProfile</h2>
-
-<div>
-    <h4>CompanyViewModel</h4>
-    <hr />
-    <dl class="dl-horizontal">
-
-        <dt>
-            @Html.DisplayNameFor(model => model.HeaderImage)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.HeaderImage)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ProfileImage)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ProfileImage)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.UserName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.UserName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Bio)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Bio)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-
-
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+<p style="margin-top:20px;margin-left:10px">
+    @if (ViewBag.CurrentVisitingId == Model.Id)
+    {
+        @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) <span>|</span>
+    }
     @Html.ActionLink("Back to List", "Index")
 </p>
+
+<dd class="text-center">
+    <h1>
+        @Html.DisplayFor(model => model.UserName)
+    </h1>
+</dd>
+
+<div>
+    <hr />
+    @if (Model.ProfileImage != null)
+    {
+        <div class="center-block" style="display:flex; margin-bottom:50px">
+            <img class="center-cropped" style="width:250px;height:250px;" src="~/uploads/@Model.Id/profileImage/@Model.ProfileImage" alt="avatar" />
+        </div>
+    }
+    else
+    {
+        Random rand = new Random();
+        string avatarLink = "";
+        if (rand.Next(0, 2) == 0)
+        {
+            avatarLink = "avatar1.png";
+        }
+        else
+        {
+            avatarLink = "avatar2.png";
+        }
+        <div class="text-center" style="margin-bottom:50px">
+            <img class="center-cropped" style="width:250px;height:250px;" src="~/DefaultImages/@avatarLink" alt="@Model.UserName" />
+        </div>
+    }
+
+    <div class="text-center" style="font-size: 16px;margin-bottom:20px">
+        @Html.DisplayFor(model => model.Bio)
+    </div>
+
+    <div class="text-center" style="font-size:20px">
+        <strong>
+            @Html.DisplayFor(model => model.Email)
+        </strong>
+    </div>
+</div>
+
+<div style="margin-top:50px">
+    <div style="margin-bottom:10px;font-size:25px;">
+        Posts:
+    </div>
+    <table>
+        <tr>
+            <td>
+                <a href="~/Views/Home/Index.cshtml">
+                    <div style="border:1px solid lightgrey;border-radius:4px;padding:20px;margin-bottom:15px">
+                        <h4>Post title</h4>
+                        <p>This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. </p>
+                    </div>
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div style="border:1px solid lightgrey;border-radius:4px;padding:20px;margin-bottom:15px">
+                    <h4>Post title</h4>
+                    <p>This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. </p>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div style="border:1px solid lightgrey;border-radius:4px;padding:20px;margin-bottom:15px">
+                    <h4>Post title</h4>
+                    <p>This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. </p>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
