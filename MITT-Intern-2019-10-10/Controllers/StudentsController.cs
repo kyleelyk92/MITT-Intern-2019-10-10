@@ -23,14 +23,14 @@ namespace MITT_Intern_2019_10_10.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
         ApplicationUserManager userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(new ApplicationDbContext()));
 
-        
+
         //I took the code for the new signinmanager and usermanager from the account controller
         //if we want, we can just do all of our signins from that controller
         //otherwise, I have them imported to this controller in the sections about signinmanager/usermanager
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
-        
+
         //in order to get the sign in and user managers, create 2 constructors, one empty and one like the one below
         public StudentsController()
         {
@@ -159,48 +159,53 @@ namespace MITT_Intern_2019_10_10.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,FirstName,LastName,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName,Bio,Skills,SchoolProgram,Teachers")] Student student, HttpPostedFileBase profileImage, HttpPostedFileBase headerImage)
+        public ActionResult Edit([Bind(Include = "Id,FirstName,LastName,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName,Bio,Skills,SchoolProgram,Teachers,ProfileImage,HeaderImage")] Student student, HttpPostedFileBase profileImage, HttpPostedFileBase headerImage)
         {
             if (ModelState.IsValid)
             {
                 //delete old profile image and replace it with the new one
                 if (profileImage != null)
                 {
-                    Helper.SaveFileFromUser(student.Id, profileImage, Server.MapPath("~"), "profile");
+                    string filename = Helper.SaveFileFromUser(student.Id, profileImage, Server.MapPath("~"), "profile");
+                    student.ProfileImage = filename;
 
-                    var allFiles = Directory.GetFiles(Server.MapPath("~") + String.Format("uploads\\{0}\\profileImage\\", student.Id));
-                    //this function deletes all the files in the folder and replaces it with the right one
-                    //everybody can only have one file of each type
-                    foreach (var file in allFiles)
+                    //delete old profile image
+
+                    if(student.ProfileImage != null)
                     {
-                        if (System.IO.File.Exists(file) && !file.Contains(profileImage.FileName))
+                        var filesToDelete = Directory.GetFiles(String.Format("{0}\\uploads\\{1}\\profileImage\\", Server.MapPath("~"), student.Id));
+
+                        foreach(var file in filesToDelete)
                         {
-                            System.IO.File.Delete(file);
+                            var fileName = file.Substring(file.LastIndexOf("\\")+1);
+
+                            if(fileName != student.ProfileImage)
+                            {
+                                System.IO.File.Delete(file);
+                            }
                         }
                     }
-
-                    //handling the student profile string change in here as well, not in the helper
-                    //so i'll have to do this every time i do a file upload in a controller
-                    student.ProfileImage = profileImage.FileName;
                 }
                 //delete old header image and replace it with the new one
-                if(headerImage != null)
+                if (headerImage != null)
                 {
-                    //run the helper to save a file first, in case it breaks
-                    Helper.SaveFileFromUser(student.Id, headerImage, Server.MapPath("~"), "header");
+                    string filename = Helper.SaveFileFromUser(student.Id, headerImage, Server.MapPath("~"), "header");
+                    student.HeaderImage = filename;
 
-                    var allFiles = Directory.GetFiles(Server.MapPath("~") + String.Format("uploads\\{0}\\headerImage\\", student.Id));
-                    
-                    foreach (var file in allFiles)
+                    if (student.HeaderImage != null)
                     {
-                     //this loop deletes all the files in the folder and replaces it with the right one
-                     //everybody can only have one file of each type
-                        if (System.IO.File.Exists(file) && !file.Contains(headerImage.FileName))
+                        var filesToDelete = Directory.GetFiles(String.Format("{0}\\uploads\\{1}\\HeaderImage\\", Server.MapPath("~"), student.Id));
+
+                        foreach (var file in filesToDelete)
                         {
-                            System.IO.File.Delete(file);
+                            var fileName = file.Substring(file.LastIndexOf("\\") + 1);
+
+                            if (fileName != student.HeaderImage)
+                            {
+                                System.IO.File.Delete(file);
+                            }
                         }
                     }
-                    student.HeaderImage = headerImage.FileName;
                 }
                 db.Entry(student).State = EntityState.Modified;
                 db.SaveChanges();
@@ -257,7 +262,7 @@ namespace MITT_Intern_2019_10_10.Controllers
             {
                 return HttpNotFound();
             }
-            
+
             StudentViewModel svm = new StudentViewModel()
             {
                 Bio = s.Bio,

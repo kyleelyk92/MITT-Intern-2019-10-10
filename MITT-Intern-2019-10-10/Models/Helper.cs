@@ -20,7 +20,8 @@ namespace MITT_Intern_2019_10_10.Models
 
 
 
-        public static void SaveFileFromUser(string userId, HttpPostedFileBase file, string basepath, string profileImageOrHeader)
+
+        public static string SaveFileFromUser(string userId, HttpPostedFileBase file, string basepath, string profileImageOrHeader)
         {
             string saveId = userId;
             string filetype = "";
@@ -28,9 +29,9 @@ namespace MITT_Intern_2019_10_10.Models
             //filepath goes like this
             //~\\uploads\\ID\\images OR ~\\uploads\\ID\\resume
 
-            string fileExtension = file.FileName.Substring(file.FileName.LastIndexOf(".") + 1);
+            string fileExtension = Path.GetExtension(file.FileName);
 
-            if(fileExtension == "jpg" || fileExtension == "jpeg" || fileExtension == "png")
+            if(fileExtension == ".jpg" || fileExtension == ".jpeg" || fileExtension == ".png")
             {
                 if(profileImageOrHeader == "header")
                 {
@@ -40,13 +41,14 @@ namespace MITT_Intern_2019_10_10.Models
                     filetype = "profileImage";
                 }
             }
-            if(fileExtension == "pdf")
+            if(fileExtension == ".pdf")
             {
                 filetype = "resume";
             }
-
-            string pathend = String.Format("uploads\\{0}\\{1}\\{2}", saveId, filetype, file.FileName);
+            string newName = String.Format("{0}{1}", DateTime.Now.Millisecond.ToString(), saveId);
+            string pathend = String.Format("uploads\\{0}\\{1}\\{2}{3}", saveId, filetype, newName, fileExtension);
             var fullpath = Path.Combine(basepath, pathend);
+
 
             string fullDirectoryName = basepath + String.Format("uploads\\{0}\\{1}", saveId, filetype);
 
@@ -59,8 +61,8 @@ namespace MITT_Intern_2019_10_10.Models
                 Directory.CreateDirectory(fullDirectoryName);
                 file.SaveAs(fullpath);
             }
+            return String.Format("{0}{1}",newName, fileExtension);
         }
-
 
     }
 }
