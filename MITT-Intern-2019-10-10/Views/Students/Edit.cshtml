@@ -164,6 +164,15 @@
             </div>
         </div>
     }
+    else
+    {
+        <div class="form-group">
+            <span class="control-label col-md-2"><strong>Current Avatar</strong></span>
+            <div class="col-md-10">
+                <img style="border-radius: 50%;" height="150" src="~/DefaultImages/@avatarLink" alt="avatar" />
+            </div>
+        </div>
+    }
 
 
 
@@ -171,6 +180,24 @@
     <label for="file">Upload/Change Header Image:</label>
     <input type="file" name="headerImage" id="file" style="width: 100%;" />
 
+    @if (@Model.HeaderImage != null)
+    {
+        <div class="form-group">
+            <span class="control-label col-md-2"><strong>Current Avatar</strong></span>
+            <div class="col-md-10">
+                <img style="border-radius: 50%;" height="150" src="~/uploads/@Model.Id/profileImage/@Model.HeaderImage" alt="avatar" />
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="form-group">
+            <span class="control-label col-md-2"><strong>Current Avatar</strong></span>
+            <div class="col-md-10">
+                <img style="border-radius: 50%;" height="150" src="https://macrovista.com/wp-content/uploads/2018/02/header-placeholder.png" alt="avatar" />
+            </div>
+        </div>
+    }
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" value="Save" class="btn btn-default" />

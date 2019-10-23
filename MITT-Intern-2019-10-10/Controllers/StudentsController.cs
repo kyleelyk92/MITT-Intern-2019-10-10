@@ -19,17 +19,18 @@ namespace MITT_Intern_2019_10_10.Controllers
 {
     public class StudentsController : Controller
     {
+        #region Constructor and assignment of managers Region
         private ApplicationDbContext db = new ApplicationDbContext();
         ApplicationUserManager userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(new ApplicationDbContext()));
 
-        #region "ApplicationSignInManager and ApplicationUserManager"
+        
         //I took the code for the new signinmanager and usermanager from the account controller
         //if we want, we can just do all of our signins from that controller
         //otherwise, I have them imported to this controller in the sections about signinmanager/usermanager
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
-
+        
         //in order to get the sign in and user managers, create 2 constructors, one empty and one like the one below
         public StudentsController()
         {
@@ -71,7 +72,7 @@ namespace MITT_Intern_2019_10_10.Controllers
         }
         #endregion
 
-
+        #region controllers for basic functionality
         // GET: Students
         public ActionResult Index()
         {
@@ -177,6 +178,9 @@ namespace MITT_Intern_2019_10_10.Controllers
                             System.IO.File.Delete(file);
                         }
                     }
+
+                    //handling the student profile string change in here as well, not in the helper
+                    //so i'll have to do this every time i do a file upload in a controller
                     student.ProfileImage = profileImage.FileName;
                 }
                 //delete old header image and replace it with the new one
@@ -189,7 +193,6 @@ namespace MITT_Intern_2019_10_10.Controllers
                     
                     foreach (var file in allFiles)
                     {
-                        
                      //this loop deletes all the files in the folder and replaces it with the right one
                      //everybody can only have one file of each type
                         if (System.IO.File.Exists(file) && !file.Contains(headerImage.FileName))
@@ -267,10 +270,8 @@ namespace MITT_Intern_2019_10_10.Controllers
                 Skills = s.Skills,
                 UserName = s.UserName
             };
-
             return View(svm);
         }
-
 
         public ActionResult PracticeFileUpload()
         {
@@ -297,4 +298,5 @@ namespace MITT_Intern_2019_10_10.Controllers
             }
         }
     }
+    #endregion
 }
