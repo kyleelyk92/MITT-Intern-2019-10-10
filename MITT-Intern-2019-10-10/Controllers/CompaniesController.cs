@@ -6,6 +6,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using System;
 
 namespace MITT_Intern_2019_10_10.Controllers
 {
@@ -169,6 +170,7 @@ namespace MITT_Intern_2019_10_10.Controllers
 
             if (id == null)
             {
+                var test = DateTime.Now.ToOADate();
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Company c = db.Companies.Find(id);
@@ -176,9 +178,10 @@ namespace MITT_Intern_2019_10_10.Controllers
             {
                 return HttpNotFound();
             }
-
+            
             CompanyViewModel cvm = new CompanyViewModel()
             {
+                Id = c.Id,
                 Bio = c.Bio,
                 Email = c.Email,
                 HeaderImage = c.HeaderImage,

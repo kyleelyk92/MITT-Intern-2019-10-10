@@ -18,7 +18,7 @@ namespace MITT_Intern_2019_10_10.Models
 
     }
 
-
+    
     public class CompanyViewModel
     {
         public string Id { get; set; }
