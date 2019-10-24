@@ -149,13 +149,13 @@
         </div>
 
         <label for="file">Upload/Change Profile Image:</label>
-        <input type="file" name="profileImage" id="file" style="width: 100%;" />
+        <input type="file" onchange="readURL(this, document.getElementById('profileImg'))" name="profileImage" id="file" style="width: 100%;" />
         @if (@Model.ProfileImage != null)
         {
             <div class="form-group">
                 <span class="control-label col-md-2"><strong>Current Avatar</strong></span>
                 <div class="col-md-10">
-                    <img style="border-radius: 50%;" height="150" src="~/uploads/@Model.Id/profileImage/@Model.ProfileImage" alt="avatar" />
+                    <img id="profileImg" style="border-radius: 50%;" height="150" src="~/uploads/@Model.Id/profileImage/@Model.ProfileImage" alt="avatar" />
                 </div>
             </div>
         }
@@ -173,14 +173,14 @@
 
 
         <label for="file">Upload/Change Header Image:</label>
-        <input type="file" name="headerImage" id="file" style="width: 100%;" />
+        <input onchange="readURL(this, document.getElementById('headerImg'))" type="file" name="headerImage" id="file" style="width: 100%;" />
 
         @if (@Model.HeaderImage != null)
         {
             <div class="form-group">
                 <span class="control-label col-md-2"><strong>Current Avatar</strong></span>
                 <div class="col-md-10">
-                    <img style="border-radius: 50%;" height="150" src="~/uploads/@Model.Id/headerImage/@Model.HeaderImage" alt="avatar" />
+                    <img id="headerImg" style="border-radius: 50%;" height="150" src="~/uploads/@Model.Id/headerImage/@Model.HeaderImage" alt="avatar" />
                 </div>
             </div>
         }
@@ -207,4 +207,5 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/ImageUpdater")
 }
