@@ -308,6 +308,21 @@ namespace MITT_Intern_2019_10_10.Controllers
                 return RedirectToAction("MessagePage", "Home", new { Error = "Error uploading file, try again" });
             }
         }
+
+
+
+        //TODO: figure out how you want to add skills to somebody
+        public ActionResult AddSkills(string studentId)
+        {
+            var s = db.Students.Find(studentId);
+
+            ViewBag.Skills = new MultiSelectList(db.Skills, db.Skills.Select(skill => skill.Name));
+
+            return View(s);
+        }
+
+
+
     }
     #endregion
 }

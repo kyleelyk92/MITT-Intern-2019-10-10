@@ -40,12 +40,35 @@ namespace MITT_Intern_2019_10_10.Migrations
                 usermanager.Create(new Company() { UserName = "GQMag", Email = "gq@gq.com" }, "Password1!");
                 usermanager.Create(new Company() { UserName = "BoldContentBS", Email = "BOLD@bold.com" }, "Password1!");
 
-                db.Programs.AddOrUpdate(x => x.Title,
+                
+            }
+            db.Programs.AddOrUpdate(x => x.Title,
                 new SchoolProgram() { Title = "Software Developer" },
                 new SchoolProgram() { Title = "Culinary" },
                 new SchoolProgram() { Title = "Automotive" }
                 );
-            }
+
+
+            db.Skills.AddOrUpdate(s => s.Name,
+                new Skill() { Name = "Javascript" },
+                new Skill() { Name = "React.js" }, 
+                new Skill() { Name = "HTML5" },
+                new Skill() { Name = "SASS" }, 
+                new Skill() { Name = "CSS3" },
+                new Skill() { Name = "AJAX" }, 
+                new Skill() { Name = "Git" },
+                new Skill() { Name = "ASP.NET C#" }, 
+                new Skill() { Name = "MVC" },
+                new Skill() { Name = "Unit Testing" }, 
+                new Skill() { Name = "Bash" },
+                new Skill() { Name = "Linux" }, 
+                new Skill() { Name = "Node.js" },
+                new Skill() { Name = "Front-End" }, 
+                new Skill() { Name = "Back-End" },
+                new Skill() { Name = "SQL" },
+                new Skill() { Name = "Python" },
+                new Skill() { Name = "DevOps" }
+                );
 
             if (!context.Roles.Any(r => r.Name == "Admin"))
             {
