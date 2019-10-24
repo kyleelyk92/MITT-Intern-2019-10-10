@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using System;
+using System.IO;
 
 namespace MITT_Intern_2019_10_10.Controllers
 {
@@ -118,10 +119,55 @@ namespace MITT_Intern_2019_10_10.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] Company company)
+
+        public ActionResult Edit([Bind(Include = "Id,CompanyName,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName,Bio,Skills,SchoolProgram,Teachers,ProfileImage,HeaderImage")] Company company, HttpPostedFileBase profileImage, HttpPostedFileBase headerImage)
         {
             if (ModelState.IsValid)
             {
+                //delete old profile image and replace it with the new one
+                if (profileImage != null)
+                {
+                    string filename = Helper.SaveFileFromUser(company.Id, profileImage, Server.MapPath("~"), "profile");
+                    company.ProfileImage = filename;
+
+                    //delete old profile image
+
+                    if (company.ProfileImage != null)
+                    {
+                        var filesToDelete = Directory.GetFiles(String.Format("{0}\\uploads\\{1}\\profileImage\\", Server.MapPath("~"), company.Id));
+
+                        foreach (var file in filesToDelete)
+                        {
+                            var fileName = file.Substring(file.LastIndexOf("\\") + 1);
+
+                            if (fileName != company.ProfileImage)
+                            {
+                                System.IO.File.Delete(file);
+                            }
+                        }
+                    }
+                }
+                //delete old header image and replace it with the new one
+                if (headerImage != null)
+                {
+                    string filename = Helper.SaveFileFromUser(company.Id, headerImage, Server.MapPath("~"), "header");
+                    company.HeaderImage = filename;
+
+                    if (company.HeaderImage != null)
+                    {
+                        var filesToDelete = Directory.GetFiles(String.Format("{0}\\uploads\\{1}\\HeaderImage\\", Server.MapPath("~"), company.Id));
+
+                        foreach (var file in filesToDelete)
+                        {
+                            var fileName = file.Substring(file.LastIndexOf("\\") + 1);
+
+                            if (fileName != company.HeaderImage)
+                            {
+                                System.IO.File.Delete(file);
+                            }
+                        }
+                    }
+                }
                 db.Entry(company).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
