@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
+using MITT_Intern_2019_10_10.Models;
+using System;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
-using Microsoft.AspNetCore.Identity;
-using MITT_Intern_2019_10_10.Models;
-using System.IO;
 
 
 namespace MITT_Intern_2019_10_10.Controllers
@@ -173,15 +169,15 @@ namespace MITT_Intern_2019_10_10.Controllers
                     //delete old profile images if there are any, this is so you can 
                     //only have one of each image type at a time
 
-                    if(student.ProfileImage != null)
+                    if (student.ProfileImage != null)
                     {
                         var filesToDelete = Directory.GetFiles(String.Format("{0}\\uploads\\{1}\\profileImage\\", Server.MapPath("~"), student.Id));
 
-                        foreach(var file in filesToDelete)
+                        foreach (var file in filesToDelete)
                         {
-                            var fileName = file.Substring(file.LastIndexOf("\\")+1);
+                            var fileName = file.Substring(file.LastIndexOf("\\") + 1);
 
-                            if(fileName != student.ProfileImage)
+                            if (fileName != student.ProfileImage)
                             {
                                 System.IO.File.Delete(file);
                             }
