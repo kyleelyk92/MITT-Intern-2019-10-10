@@ -19,12 +19,12 @@ namespace MITT_Intern_2019_10_10.Models
         }
 
 
-
-
         public static string SaveFileFromUser(string userId, HttpPostedFileBase file, string basepath, string profileImageOrHeader)
         {
             string saveId = userId;
             string filetype = "";
+
+
 
             //filepath goes like this
             //~\\uploads\\ID\\images OR ~\\uploads\\ID\\resume
@@ -45,10 +45,12 @@ namespace MITT_Intern_2019_10_10.Models
             {
                 filetype = "resume";
             }
-            string newName = String.Format("{0}{1}", DateTime.Now.Millisecond.ToString(), saveId);
+
+            int unixTimestamp = (int)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
+
+            string newName = String.Format("{0}{1}", unixTimestamp, saveId);
             string pathend = String.Format("uploads\\{0}\\{1}\\{2}{3}", saveId, filetype, newName, fileExtension);
             var fullpath = Path.Combine(basepath, pathend);
-
 
             string fullDirectoryName = basepath + String.Format("uploads\\{0}\\{1}", saveId, filetype);
 
@@ -63,6 +65,5 @@ namespace MITT_Intern_2019_10_10.Models
             }
             return String.Format("{0}{1}",newName, fileExtension);
         }
-
     }
 }

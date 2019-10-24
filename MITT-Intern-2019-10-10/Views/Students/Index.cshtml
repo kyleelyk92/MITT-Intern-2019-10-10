@@ -40,15 +40,7 @@
             else
             {
                 Random rand = new Random();
-                string avatarLink = "";
-                if (rand.Next(0, 2) == 0)
-                {
-                    avatarLink = "avatar1.png";
-                }
-                else
-                {
-                    avatarLink = "avatar2.png";
-                }
+                string avatarLink = rand.Next(0, 2) == 0 ? "avatar1.png" : "avatar2.png";
                 <td>
                     <img class="center-cropped" src="~/DefaultImages/@avatarLink" alt="@item.UserName" />
                 </td>
@@ -65,9 +57,10 @@
                 @Html.DisplayFor(modelItem => item.PhoneNumber)
             </td>
             <td>
+                @Html.ActionLink("Check out Profile", "StudentProfile", new { id = item.Id }) |
                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
                 @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id }) |
             </td>
         </tr>
     }

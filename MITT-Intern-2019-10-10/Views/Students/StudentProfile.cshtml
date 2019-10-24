@@ -10,7 +10,6 @@
 
 <div>
     @Html.LabelFor(model => model.Bio)
-
 </div>
 
 @Html.NameFor(model => model.FirstName)
@@ -21,3 +20,24 @@
 @Html.LabelFor(model => model.LastName)
 @Html.DisplayFor(model => model.LastName)
 
+<div id="MainContainer" class="mainContainer">
+    <!--Top section will have both images, layered with profile picture on top-->
+    <div id="topSection" class="topSection">
+        <!--Set the height and stuff up in here-->
+        <img id="headerImg" class="headerImg" style="" src="~/uploads/@Model.Id/profileImage/@Model.HeaderImage" alt="avatar" />
+        <img id="profileImg" class="profileImg" style="" src="~/uploads/@Model.Id/profileImage/@Model.ProfileImage" alt="avatar" />
+
+    </div>
+    <div id="bottomSection" style="display:flex; flex-direction: row">
+        <div id="bottomLeftSection" class="bottomLeftSection">
+
+        </div>
+        <div id="bottomRightSection" class="bottomRightSection">
+
+        </div>
+    </div>
+</div>
+
+@section Scripts{ 
+    @Styles.Render("StudentProfilePage.css")
+}

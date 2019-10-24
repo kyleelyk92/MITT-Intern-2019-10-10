@@ -15,6 +15,7 @@ namespace MITT_Intern_2019_10_10.Models
     }
     public class StudentViewModel
     {
+        public string Id { get; set; }
         public string Email { get; set; }
         public string UserName { get; set; }
         public string FirstName { get; set; }

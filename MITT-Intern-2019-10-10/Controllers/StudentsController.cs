@@ -137,10 +137,11 @@ namespace MITT_Intern_2019_10_10.Controllers
             return View(student);
         }
 
+
+        #region student edit functionality
         // GET: Students/Edit/5
         public ActionResult Edit(string id)
         {
-            //5b8f32aa-6c35-4504-9cf3-82a64c3c800e is a student ID i can use for testing
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -169,7 +170,8 @@ namespace MITT_Intern_2019_10_10.Controllers
                     string filename = Helper.SaveFileFromUser(student.Id, profileImage, Server.MapPath("~"), "profile");
                     student.ProfileImage = filename;
 
-                    //delete old profile image
+                    //delete old profile images if there are any, this is so you can 
+                    //only have one of each image type at a time
 
                     if(student.ProfileImage != null)
                     {
@@ -213,6 +215,9 @@ namespace MITT_Intern_2019_10_10.Controllers
             }
             return View(student);
         }
+        #endregion
+
+
 
         // GET: Students/Delete/5
         public ActionResult Delete(string id)
@@ -265,6 +270,7 @@ namespace MITT_Intern_2019_10_10.Controllers
 
             StudentViewModel svm = new StudentViewModel()
             {
+                Id = s.Id,
                 Bio = s.Bio,
                 Email = s.Email,
                 FirstName = s.FirstName,
