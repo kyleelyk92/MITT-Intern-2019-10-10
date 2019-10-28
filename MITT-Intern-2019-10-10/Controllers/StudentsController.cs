@@ -73,6 +73,8 @@ namespace MITT_Intern_2019_10_10.Controllers
         // GET: Students
         public ActionResult Index()
         {
+            ViewBag.CurrentUserId = User.Identity.GetUserId();
+
             return View(db.Students.ToList());
         }
 
@@ -120,14 +122,17 @@ namespace MITT_Intern_2019_10_10.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Email,FirstName,LastName,UserName")] Student student, string password)
+        public ActionResult Create([Bind(Include = "Email,UserName")] Student student, string password)
         {
             if (ModelState.IsValid)
             {
                 Student s = new Student { UserName = student.Email, Email = student.Email };
-                userManager.CreateAsync(s, "Test1234");
+                userManager.Create(s, password);
 
-                Um.Create(s, password);
+                var result = Um.Create(s, password);
+
+
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -259,7 +264,7 @@ namespace MITT_Intern_2019_10_10.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Student s = db.Students.Find(id);
+            Student s = db.Students.Include(x=> x.SchoolProgram).Include(st => st.Skills).FirstOrDefault(stud => stud.Id == id);
             if (s == null)
             {
                 return HttpNotFound();

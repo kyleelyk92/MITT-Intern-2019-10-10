@@ -1,0 +1,68 @@
+﻿body {
+}
+.box{
+   border: 4px black solid;
+   
+   border-radius: 3px;
+   margin: 5px;
+}
+.bottom {
+    background: linear-gradient(to right, black 0%, #00a88e 100%);
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 40vh;
+}
+.top {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    background-color: #488dff;
+    height: 40vh;
+}
+a {
+    color:gainsboro;
+}
+.leftHalf {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+.rightHalf {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+.a{
+    text-decoration: none;
+}
+a:hover, a:focus{
+    text-decoration: none;
+}
+
+span:focus {
+    text-decoration: none;
+}
+
+
+.getThisP {
+    text-decoration: none;
+}
+.getThisP:hover {
+    text-decoration: none;
+}
+
+.thisStuffShouldGetBig:hover{
+    text-decoration: underline;
+}
+.thisStuffShouldStaySmall{
+    text-decoration:none;
+}

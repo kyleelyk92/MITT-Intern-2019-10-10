@@ -9,12 +9,45 @@
 <div id="MainContainer" class="mainContainer">
     <!--Top section will have both images, layered with profile picture on top-->
     <div id="topSection" class="topSection">
-        <div class="imageSection" style="background-image: url('../../uploads/@Model.Id/headerImage/@Model.HeaderImage')">
-            <!--<img id="headerImg" class="headerImg" style="" src="~/uploads/@Model.Id/headerImage/@Model.HeaderImage" alt="avatar" />
-            -->
-            <img id="profileImg" class="profileImg" style="" src="~/uploads/@Model.Id/profileImage/@Model.ProfileImage" alt="avatar" />
 
-        </div>
+
+        @if (Model.HeaderImage != null && Model.ProfileImage != null)
+        {
+            <div class="imageSection" style="background-image: url('../../uploads/@Model.Id/headerImage/@Model.HeaderImage')">
+                <!--<img id="headerImg" class="headerImg" style="" src="~/uploads/@Model.Id/headerImage/@Model.HeaderImage" alt="avatar" />
+            -->
+                <img id="profileImg" class="profileImg" style="" src="~/uploads/@Model.Id/profileImage/@Model.ProfileImage" alt="avatar" />
+
+            </div>
+        }
+        else if (Model.HeaderImage != null && Model.ProfileImage == null)
+        {
+            <div class="imageSection" style="background-image: url('../../uploads/@Model.Id/headerImage/@Model.HeaderImage')">
+                <!--<img id="headerImg" class="headerImg" style="" src="~/uploads/@Model.Id/headerImage/@Model.HeaderImage" alt="avatar" />
+            -->
+                <img id="profileImg" class="profileImg" style="" src="~/DefaultImages/avatar1.png" alt="avatar" />
+
+            </div>
+        }
+        else if (Model.HeaderImage == null && Model.ProfileImage != null)
+        {
+            <div class="imageSection" style="background-image: url('https://macrovista.com/wp-content/uploads/2018/02/header-placeholder.png')">
+                <!--<img id="headerImg" class="headerImg" style="" src="~/uploads/@Model.Id/headerImage/@Model.HeaderImage" alt="avatar" />
+            -->
+                <img id="profileImg" class="profileImg" style="" src="~/uploads/@Model.Id/profileImage/@Model.ProfileImage" alt="avatar" />
+
+            </div>
+        }
+        else
+        {
+            <div class="imageSection" style="background-image: url('https://macrovista.com/wp-content/uploads/2018/02/header-placeholder.png')">
+                <!--<img id="headerImg" class="headerImg" style="" src="~/uploads/@Model.Id/headerImage/@Model.HeaderImage" alt="avatar" />
+            -->
+                <img id="profileImg" class="profileImg" style="" src="~/DefaultImages/avatar1.png" alt="avatar" />
+
+            </div>
+        }
+
         <!--Set the height and stuff up in here-->
 
     </div>
@@ -40,7 +73,7 @@
                                 @Model.UserName
                             </td>
                         </tr>
-                        @if(@Model.SchoolProgram != null)
+                        @if (@Model.SchoolProgram != null)
                         {
                             <tr>
                                 <th scope="col">@Html.LabelFor(model => model.SchoolProgram.Title)</th>
@@ -49,14 +82,20 @@
                                 </td>
                             </tr>
                         }
-                        
+
                     </tbody>
                 </table>
 
             </div>
         </div>
         <div id="bottomRightSection" class="bottomRightSection">
-
+            <div><h3>Skills:</h3></div>
+            <ul>
+                @foreach (var skill in Model.Skills)
+                {
+                    <li>@skill.Name</li>
+                }
+            </ul>
         </div>
     </div>
 </div>
