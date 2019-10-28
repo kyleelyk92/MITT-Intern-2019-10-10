@@ -43,3 +43,10 @@ textarea {
     opacity: 0;
     
 }
+
+#Bio {
+    max-width: 280px;
+    width: 100%;
+    height: 180px;
+    padding: 5px;
+}
