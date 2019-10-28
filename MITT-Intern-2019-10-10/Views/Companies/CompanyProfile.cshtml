@@ -9,7 +9,6 @@
     {
         @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) <span>|</span>
     }
-    @Html.ActionLink("Back to List", "Index")
 </p>
 
 <dd class="text-center">
@@ -38,7 +37,7 @@
         {
             avatarLink = "avatar2.png";
         }
-        <div class="text-center" style="margin-bottom:50px">
+        <div class="text-center" style="margin-bottom:50px;">
             <img class="center-cropped" style="width:250px;height:250px;" src="~/DefaultImages/@avatarLink" alt="@Model.UserName" />
         </div>
     }
@@ -54,17 +53,18 @@
     </div>
 </div>
 
-<div style="margin-top:50px">
-    <div style="margin-bottom:10px;font-size:25px;">
-        Posts:
+<div style="margin-top:50px;padding:20px;border:1px solid gray;border-radius: 5px;background-color: #f8f8f8;">
+    <div style="margin-bottom:10px;font-size:25px;display:flex;justify-content:space-between">
+        <span>Posts:</span>
+        <span>Create a new job post</span>
     </div>
     <table>
         <tr>
             <td>
-                <a href="~/Views/Home/Index.cshtml">
-                    <div style="border:1px solid lightgrey;border-radius:4px;padding:20px;margin-bottom:15px">
-                        <h4>Post title</h4>
-                        <p>This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. </p>
+                <a class="noUnderlineHover" href="~/Views/Home/Index.cshtml">
+                    <div style="border:1px solid lightgrey;border-radius:5px;padding:20px;margin-bottom:15px;background-color: white;" class="pleaseFix">
+                        <h4 class="title">Post title</h4>
+                        <p style="color:black;">This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. </p>
                     </div>
                 </a>
             </td>

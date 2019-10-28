@@ -50,3 +50,16 @@ textarea {
     height: 180px;
     padding: 5px;
 }
+
+.title {
+    color:black;
+}
+
+a:hover {
+    text-decoration:none;
+    color: black;
+}
+
+.pleaseFix:hover h4{
+    text-decoration: underline !important
+}
