@@ -1,0 +1,33 @@
+﻿@model MITT_Intern_2019_10_10.Models.Student
+
+@{
+    ViewBag.Title = "ChangeProgram";
+}
+
+<h2>ChangeProgram</h2>
+
+<!--in the model is a student, ViewBag.Programs is a list of all programs that the student is not currently registered in-->
+
+@using (@Html.BeginForm("ChangeProgram", "Students", FormMethod.Post))
+{
+<div>
+    Choose a program
+</div>
+@Html.Hidden("studentId", new { studentId = Model.Id })
+<select name="programId">
+    @foreach (var program in ViewBag.Programs)
+    {
+        if (Model.SchoolProgram != null)
+        {
+            if (Model.SchoolProgram.Id == program.Id)
+            {
+                <option disabled value="@program.Id">@program.Title</option>
+            }
+        }
+
+        <option value="@program.Id">@program.Title</option>
+    }
+</select>
+
+<input type="submit" value="Update Program" />
+}

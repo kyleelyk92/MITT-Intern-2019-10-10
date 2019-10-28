@@ -1,0 +1,30 @@
+﻿@model MITT_Intern_2019_10_10.Models.Student
+
+@{
+    ViewBag.Title = "RemoveSkills";
+}
+
+<h2>AddSkills</h2>
+
+<h1>@Model.FirstName</h1>
+<div>
+    @using (Html.BeginForm("Removeskills", "Students", FormMethod.Post))
+    {
+        @Html.Hidden("studentId", new { id = Model.Id })
+        <div>
+            <span>Select some new skills (ctrl + click to add multiple skills)</span>
+            @Html.DropDownList("skillsToRemove", new MultiSelectList(ViewBag.Skills, "Id", "Name"), new { multiple = "multiple", @class = "multiselect" })
+        </div>
+        <input type="submit" value="Submit" />
+    }
+</div>
+<div><h2>Current Skills</h2></div>
+<ul>
+
+    @foreach (var skill in Model.Skills)
+    {
+        <li>
+            @skill.Name
+        </li>
+    }
+</ul>

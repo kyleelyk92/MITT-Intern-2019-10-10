@@ -27,6 +27,8 @@ namespace MITT_Intern_2019_10_10
                       "~/Content/site.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/ImageUpdater").Include("~/Scripts/ImageUpdater.js"));
+
+            bundles.Add(new StyleBundle("~/bundles/StudentProfileStyles").Include("~/Content/StudentProfilePage.css"));
         }
     }
 }

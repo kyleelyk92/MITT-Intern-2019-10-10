@@ -3,6 +3,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using MITT_Intern_2019_10_10.Models;
 using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
@@ -142,7 +143,7 @@ namespace MITT_Intern_2019_10_10.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Student student = db.Students.Find(id);
+            Student student = db.Students.Where(s => s.Id == id).Include(st => st.SchoolProgram).FirstOrDefault();
 
             if (student == null)
             {
@@ -304,6 +305,127 @@ namespace MITT_Intern_2019_10_10.Controllers
                 return RedirectToAction("MessagePage", "Home", new { Error = "Error uploading file, try again" });
             }
         }
+
+
+
+        //TODO: figure out how you want to add skills to somebody
+        public ActionResult AddSkills(string studentId)
+        {
+            var s = db.Students.Where(st => st.Id == studentId).Include(stu => stu.Skills).ToList();
+
+            var student = s[0];
+            var studentSkills = student.Skills.ToList();
+            var allSkills = db.Skills.ToList();
+            ViewBag.Skills = new List<Skill>();
+
+            foreach(var sk in allSkills)
+            {
+                if (!studentSkills.Contains(sk))
+                {
+                    ViewBag.Skills.Add(sk);
+                }
+            }
+            
+
+            return View(student);
+        }
+        [HttpPost]
+        public ActionResult AddSkills(int[] skillsToAdd, string studentId)
+        {
+            //skillsToAdd comes in as an array of IDs of the skills
+            var studId = studentId;
+            var s = db.Students.Where(st => st.Id == studentId).Include(stu => stu.Skills).ToList();
+            var student = s[0];
+
+            foreach (var skill in skillsToAdd)
+            {
+                var sk = db.Skills.Find(skill);
+
+                if (!student.Skills.Contains(sk))
+                {
+                    student.Skills.Add(sk);
+                }
+            }
+
+            db.SaveChanges();
+            var whatIsThis = skillsToAdd;
+            return RedirectToAction("Index", "Students");
+        }
+        public ActionResult Removeskills(string studentId)
+        {
+            var s = db.Students.Where(st => st.Id == studentId).Include(stu => stu.Skills).ToList();
+
+            var student = s[0];
+            var studentSkills = student.Skills.ToList();
+            var allSkills = db.Skills.ToList();
+            ViewBag.Skills = new List<Skill>();
+
+            foreach (var sk in allSkills)
+            {
+                if (studentSkills.Contains(sk))
+                {
+                    ViewBag.Skills.Add(sk);
+                }
+            }
+
+
+            return View(student);
+        }
+        [HttpPost]
+        public ActionResult Removeskills(int[] skillsToRemove, string studentId)
+        {
+            //skillsToAdd comes in as an array of IDs of the skills
+            var studId = studentId;
+            var s = db.Students.Where(st => st.Id == studentId).Include(stu => stu.Skills).ToList();
+            var student = s[0];
+
+            foreach (var skill in skillsToRemove)
+            {
+                var sk = db.Skills.Find(skill);
+
+                if (student.Skills.Contains(sk))
+                {
+                    student.Skills.Remove(sk);
+                }
+            }
+
+            db.SaveChanges();
+                
+            return RedirectToAction("Index", "Students");
+        }
+        public ActionResult ChangeProgram(string studentId)
+        {
+            var student = db.Students.FirstOrDefault(st => st.Id == studentId);
+            var programs = db.Programs.ToList();
+
+            var counter = programs.Count-1;
+            //takes the one that they're registered in out of the list
+            
+            for(var x = 0; x < counter; x++)
+            {
+                if (student.SchoolProgram != null)
+                {
+                    if (student.SchoolProgram.Id == programs[x].Id)
+                    {
+                        programs.Remove(programs[x]);
+                    }
+                }
+            }
+            ViewBag.Programs = programs;
+
+            return View(student);
+        }
+        [HttpPost]
+        public ActionResult ChangeProgram(string studentId, int programId)
+        {
+            var program = db.Programs.Find(programId);
+            var student = db.Students.Find(studentId);
+
+            student.SchoolProgram = program;
+            db.SaveChanges();
+            return RedirectToAction("MessagePage","Home", new { studentId = studentId, programId = programId, programName = program.Title, Message = "Updated student program"});
+        }
     }
+    
     #endregion
 }
