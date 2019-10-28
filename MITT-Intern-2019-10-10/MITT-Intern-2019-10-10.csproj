@@ -282,6 +282,8 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\StudentProfilePage.css" />
+    <Content Include="DefaultImages\avatar1.png" />
+    <Content Include="DefaultImages\avatar2.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -289,17 +291,27 @@
     <Content Include="Scripts\ImageUpdater.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <None Include="Scripts\jquery-3.3.1.intellisense.js" />
-    <Content Include="Scripts\jquery-3.3.1.js" />
-    <Content Include="Scripts\jquery-3.3.1.min.js" />
-    <Content Include="Scripts\jquery-3.3.1.slim.js" />
-    <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
+    <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.4.1.js" />
+    <Content Include="Scripts\jquery-3.4.1.min.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.4.1.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="uploads\30979e55-c1a4-4d1e-b1ea-ffea93d5f6dc\headerImage\157192827430979e55-c1a4-4d1e-b1ea-ffea93d5f6dc.jpg" />
+    <Content Include="uploads\30979e55-c1a4-4d1e-b1ea-ffea93d5f6dc\profileImage\157192824830979e55-c1a4-4d1e-b1ea-ffea93d5f6dc.jpg" />
+    <Content Include="uploads\6bd7c290-1de9-45fb-8046-ac0a38b66c10\images\New Project.jpg" />
+    <Content Include="uploads\e2ce1084-4830-460d-a819-e28e8a30bc16\headerImage\158e2ce1084-4830-460d-a819-e28e8a30bc16.jpg" />
+    <Content Include="uploads\e2ce1084-4830-460d-a819-e28e8a30bc16\images\pets-4415649.jpg" />
+    <Content Include="uploads\e2ce1084-4830-460d-a819-e28e8a30bc16\images\selfie.jpg" />
+    <Content Include="uploads\e2ce1084-4830-460d-a819-e28e8a30bc16\profileImage.jpg" />
+    <Content Include="uploads\e2ce1084-4830-460d-a819-e28e8a30bc16\profileImage\76e2ce1084-4830-460d-a819-e28e8a30bc16.jpg" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -353,6 +365,7 @@
     <Content Include="Views\Students\PracticeFileUpload.cshtml" />
     <Content Include="Views\Companies\CompanyProfile.cshtml" />
     <Content Include="Views\Home\MessagePage.cshtml" />
+    <Content Include="uploads\e2ce1084-4830-460d-a819-e28e8a30bc16\resume\ResumeKElyk_2019_09_13.pdf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\App_LocalResources\" />
@@ -368,8 +381,6 @@
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="packages.config" />
-    <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
-    <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201910111846257_firstMigration.resx">

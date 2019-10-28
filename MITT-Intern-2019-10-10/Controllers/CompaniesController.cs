@@ -1,13 +1,13 @@
-﻿using Microsoft.AspNet.Identity.Owin;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using MITT_Intern_2019_10_10.Models;
+using System;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
-using System;
-using System.IO;
 
 namespace MITT_Intern_2019_10_10.Controllers
 {
@@ -91,7 +91,7 @@ namespace MITT_Intern_2019_10_10.Controllers
             if (ModelState.IsValid)
             {
                 UM.Create(company, "Password1!");
-                
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -130,7 +130,8 @@ namespace MITT_Intern_2019_10_10.Controllers
                     string filename = Helper.SaveFileFromUser(company.Id, profileImage, Server.MapPath("~"), "profile");
                     company.ProfileImage = filename;
 
-                    //delete old profile image
+                    //delete old profile images if there are any, this is so you can 
+                    //only have one of each image type at a time
 
                     if (company.ProfileImage != null)
                     {
@@ -224,7 +225,7 @@ namespace MITT_Intern_2019_10_10.Controllers
             {
                 return HttpNotFound();
             }
-            
+
             CompanyViewModel cvm = new CompanyViewModel()
             {
                 Id = c.Id,
@@ -238,6 +239,6 @@ namespace MITT_Intern_2019_10_10.Controllers
             return View(cvm);
         }
 
-      
+
     }
 }
