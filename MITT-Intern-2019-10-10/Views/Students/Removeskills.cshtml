@@ -1,19 +1,19 @@
 ﻿@model MITT_Intern_2019_10_10.Models.Student
 
 @{
-    ViewBag.Title = "AddSkills";
+    ViewBag.Title = "RemoveSkills";
 }
 
 <h2>AddSkills</h2>
 
 <h1>@Model.FirstName</h1>
 <div>
-    @using (Html.BeginForm("AddSkills", "Students", FormMethod.Post))
+    @using (Html.BeginForm("Removeskills", "Students", FormMethod.Post))
     {
         @Html.Hidden("studentId", new { id = Model.Id })
         <div>
             <span>Select some new skills (ctrl + click to add multiple skills)</span>
-            @Html.DropDownList("skillsToAdd", new MultiSelectList(ViewBag.Skills, "Id", "Name"), new { multiple = "multiple", @class = "multiselect" })
+            @Html.DropDownList("skillsToRemove", new MultiSelectList(ViewBag.Skills, "Id", "Name"), new { multiple = "multiple", @class = "multiselect" })
         </div>
         <input type="submit" value="Submit" />
     }
@@ -28,4 +28,3 @@
         </li>
     }
 </ul>
-<div>Remove some skills? Go @Html.ActionLink("Here", "Removeskills", new { studentId = Model.Id }), </div>

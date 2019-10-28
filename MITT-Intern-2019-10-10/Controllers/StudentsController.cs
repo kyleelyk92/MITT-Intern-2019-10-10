@@ -3,6 +3,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using MITT_Intern_2019_10_10.Models;
 using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
@@ -310,15 +311,88 @@ namespace MITT_Intern_2019_10_10.Controllers
         //TODO: figure out how you want to add skills to somebody
         public ActionResult AddSkills(string studentId)
         {
-            var s = db.Students.Find(studentId);
+            var s = db.Students.Where(st => st.Id == studentId).Include(stu => stu.Skills).ToList();
 
-            ViewBag.Skills = new MultiSelectList(db.Skills, db.Skills.Select(skill => skill.Name));
+            var student = s[0];
+            var studentSkills = student.Skills.ToList();
+            var allSkills = db.Skills.ToList();
+            ViewBag.Skills = new List<Skill>();
 
-            return View(s);
+            foreach(var sk in allSkills)
+            {
+                if (!studentSkills.Contains(sk))
+                {
+                    ViewBag.Skills.Add(sk);
+                }
+            }
+            
+
+            return View(student);
         }
+        [HttpPost]
+        public ActionResult AddSkills(int[] skillsToAdd, string studentId)
+        {
+            //skillsToAdd comes in as an array of IDs of the skills
+            var studId = studentId;
+            var s = db.Students.Where(st => st.Id == studentId).Include(stu => stu.Skills).ToList();
+            var student = s[0];
+
+            foreach (var skill in skillsToAdd)
+            {
+                var sk = db.Skills.Find(skill);
+
+                if (!student.Skills.Contains(sk))
+                {
+                    student.Skills.Add(sk);
+                }
+            }
+
+            db.SaveChanges();
+            var whatIsThis = skillsToAdd;
+            return RedirectToAction("Index", "Students");
+        }
+        public ActionResult Removeskills(string studentId)
+        {
+            var s = db.Students.Where(st => st.Id == studentId).Include(stu => stu.Skills).ToList();
+
+            var student = s[0];
+            var studentSkills = student.Skills.ToList();
+            var allSkills = db.Skills.ToList();
+            ViewBag.Skills = new List<Skill>();
+
+            foreach (var sk in allSkills)
+            {
+                if (studentSkills.Contains(sk))
+                {
+                    ViewBag.Skills.Add(sk);
+                }
+            }
 
 
+            return View(student);
+        }
+        [HttpPost]
+        public ActionResult Removeskills(int[] skillsToRemove, string studentId)
+        {
+            //skillsToAdd comes in as an array of IDs of the skills
+            var studId = studentId;
+            var s = db.Students.Where(st => st.Id == studentId).Include(stu => stu.Skills).ToList();
+            var student = s[0];
 
+            foreach (var skill in skillsToRemove)
+            {
+                var sk = db.Skills.Find(skill);
+
+                if (student.Skills.Contains(sk))
+                {
+                    student.Skills.Remove(sk);
+                }
+            }
+
+            db.SaveChanges();
+            
+            return RedirectToAction("Index", "Students");
+        }
     }
     #endregion
 }
