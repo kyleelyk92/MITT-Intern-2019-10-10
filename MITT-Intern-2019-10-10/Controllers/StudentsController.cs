@@ -143,7 +143,7 @@ namespace MITT_Intern_2019_10_10.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Student student = db.Students.Find(id);
+            Student student = db.Students.Where(s => s.Id == id).Include(st => st.SchoolProgram).FirstOrDefault();
 
             if (student == null)
             {
@@ -390,9 +390,42 @@ namespace MITT_Intern_2019_10_10.Controllers
             }
 
             db.SaveChanges();
-            
+                
             return RedirectToAction("Index", "Students");
         }
+        public ActionResult ChangeProgram(string studentId)
+        {
+            var student = db.Students.FirstOrDefault(st => st.Id == studentId);
+            var programs = db.Programs.ToList();
+
+            var counter = programs.Count-1;
+            //takes the one that they're registered in out of the list
+            
+            for(var x = 0; x < counter; x++)
+            {
+                if (student.SchoolProgram != null)
+                {
+                    if (student.SchoolProgram.Id == programs[x].Id)
+                    {
+                        programs.Remove(programs[x]);
+                    }
+                }
+            }
+            ViewBag.Programs = programs;
+
+            return View(student);
+        }
+        [HttpPost]
+        public ActionResult ChangeProgram(string studentId, int programId)
+        {
+            var program = db.Programs.Find(programId);
+            var student = db.Students.Find(studentId);
+
+            student.SchoolProgram = program;
+            db.SaveChanges();
+            return RedirectToAction("MessagePage","Home", new { studentId = studentId, programId = programId, programName = program.Title, Message = "Updated student program"});
+        }
     }
+    
     #endregion
 }

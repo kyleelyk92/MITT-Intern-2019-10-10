@@ -5,7 +5,23 @@
 }
 
 <h2>Edit</h2>
+<div>
+    Current Program:
+    @if (Model.SchoolProgram != null)
+    {
+        <div>
+            @Model.SchoolProgram.Title
+        </div>
+    }
+    else
+    {
+        <div>
+            Not currently in a program
+        </div>
+    }
+</div>
 
+<div>Change program @Html.ActionLink("Change Program", "ChangeProgram", new { studentId = Model.Id }) </div>
 
 @using (Html.BeginForm("Edit", "Students", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
@@ -80,7 +96,7 @@
 
         <label for="file">Upload/Change Profile Image:</label>
         <input type="file" onchange="readURL(this, document.getElementById('profileImg'))" name="profileImage" id="file" style="width: 100%;" />
-        @if(@Model.ProfileImage != null)
+        @if (@Model.ProfileImage != null)
         {
             <div class="form-group">
                 <span class="control-label col-md-2"><strong>Current Avatar</strong></span>
@@ -135,7 +151,7 @@
         <h2>Skills Section</h2>
     </div>
 
-    if(Model.Skills != null)
+    if (Model.Skills != null)
     {
         foreach (var skill in Model.Skills)
         {
@@ -154,7 +170,7 @@
                 <b>Add some skills</b>
             </p>
             <p>
-                @Html.ActionLink("Add a skill", "AddSkills", new { studentId = Model.Id})
+                @Html.ActionLink("Add a skill", "AddSkills", new { studentId = Model.Id })
             </p>
         </div>
     }

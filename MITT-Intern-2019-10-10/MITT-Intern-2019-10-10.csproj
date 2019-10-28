@@ -366,6 +366,7 @@
     <Content Include="uploads\e2ce1084-4830-460d-a819-e28e8a30bc16\resume\ResumeKElyk_2019_09_13.pdf" />
     <Content Include="Views\Students\AddSkills.cshtml" />
     <Content Include="Views\Students\Removeskills.cshtml" />
+    <Content Include="Views\Students\ChangeProgram.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\App_LocalResources\" />
