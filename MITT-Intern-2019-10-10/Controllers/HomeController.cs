@@ -17,6 +17,10 @@ namespace MITT_Intern_2019_10_10.Controllers
             
             return View();
         }
+        public ActionResult HomePage()
+        {
+            return View();
+        }
 
         public ActionResult About()
         {

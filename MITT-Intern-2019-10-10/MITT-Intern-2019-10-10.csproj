@@ -281,6 +281,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\HomePageStyle.css" />
     <Content Include="Content\StudentProfilePage.css" />
     <Content Include="DefaultImages\avatar1.png" />
     <Content Include="DefaultImages\avatar2.png" />
@@ -367,6 +368,7 @@
     <Content Include="Views\Students\AddSkills.cshtml" />
     <Content Include="Views\Students\Removeskills.cshtml" />
     <Content Include="Views\Students\ChangeProgram.cshtml" />
+    <Content Include="Views\Home\HomePage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\App_LocalResources\" />

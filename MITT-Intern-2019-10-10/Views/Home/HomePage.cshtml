@@ -1,0 +1,26 @@
+﻿<!--Get redirected here if the user is not signed in and they try to access another page-->
+@{
+    ViewBag.Title = "HomePage";
+}
+
+<h2>HomePage</h2>
+
+
+<div class="mainContainer">
+    <div class="top wholeWidth box">
+        @Html.ActionLink("Already registered? Sign in here.", "Login", "Account")
+    </div>
+    <div class="bottom box">
+        <div class="leftHalf box">
+            @Html.ActionLink("Register a new Company", "Create", "Companies")
+        </div>
+        <div class="rightHalf box">
+            @Html.ActionLink("Create a new student account", "Create", "Student")
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    @Styles.Render("~/bundles/HomePageStyles")
+}
