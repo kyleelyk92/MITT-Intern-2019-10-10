@@ -9,7 +9,7 @@ namespace MITT_Intern_2019_10_10.Models
     {
         public Posting()
         {
-
+            Skills = new List<Skill>();
         }
 
         public int Id { get; set; }
