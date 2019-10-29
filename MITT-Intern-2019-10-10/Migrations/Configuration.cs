@@ -19,6 +19,34 @@ namespace MITT_Intern_2019_10_10.Migrations
         {
             var db = context;
 
+            var softwareDev = new SchoolProgram() { Title = "Software Developer" };
+
+            var js = new Skill() { Name = "Javascript" };
+            var react = new Skill() { Name = "React.js" };
+            var html5 = new Skill() { Name = "HTML5" };
+            var sass = new Skill() { Name = "SASS" };
+            var ajax = new Skill() { Name = "AJAX" };
+
+            db.Skills.AddOrUpdate(s => s.Name,
+                js,
+                react,
+                html5,
+                sass,
+                ajax,
+                new Skill() { Name = "CSS3" },
+                new Skill() { Name = "Git" },
+                new Skill() { Name = "ASP.NET C#" },
+                new Skill() { Name = "MVC" },
+                new Skill() { Name = "Unit Testing" },
+                new Skill() { Name = "Bash" },
+                new Skill() { Name = "Linux" },
+                new Skill() { Name = "Node.js" },
+                new Skill() { Name = "Front-End" },
+                new Skill() { Name = "Back-End" },
+                new Skill() { Name = "SQL" },
+                new Skill() { Name = "Python" },
+                new Skill() { Name = "DevOps" }
+                );
 
             if (!context.Users.Any(u => u.UserName == "KyleE"))
             {
@@ -38,37 +66,36 @@ namespace MITT_Intern_2019_10_10.Migrations
 
                 usermanager.Create(company1, "Password1!");
                 usermanager.Create(new Company() { UserName = "GQMag", Email = "gq@gq.com" }, "Password1!");
-                usermanager.Create(new Company() { UserName = "BoldContentBS", Email = "BOLD@bold.com" }, "Password1!");
+
+                var bold = new Company() { UserName = "BoldContentBS", Email = "BOLD@bold.com" };
+
+                var post = new Posting()
+                {
+                    Title = "Front-end Javasript dev wanted",
+                    PostingDate = DateTime.Now,
+                    ClosingDate = DateTime.Now.AddDays(60),
+                    Content = "we are looking for a javascriot dev that likes to work in fron-end. Hopefully they will also like react. Looking for a stduent ike blah bah bha bkha bha bkab blah blah blahbh sdjfojsdufs jsdfuisdf i foims oi osd do you know dflksdf kf pofdnf",
+                    SchoolProgram = softwareDev,
+                };
+
+                post.Skills.Add(js);
+                post.Skills.Add(react);
+                post.Skills.Add(html5);
+                post.Skills.Add(sass);
+                post.Skills.Add(ajax);
+
+                bold.Postings.Add(post);
+
+                usermanager.Create(bold, "Password1!");
 
                 
             }
             db.Programs.AddOrUpdate(x => x.Title,
-                new SchoolProgram() { Title = "Software Developer" },
                 new SchoolProgram() { Title = "Culinary" },
                 new SchoolProgram() { Title = "Automotive" }
                 );
 
-
-            db.Skills.AddOrUpdate(s => s.Name,
-                new Skill() { Name = "Javascript" },
-                new Skill() { Name = "React.js" }, 
-                new Skill() { Name = "HTML5" },
-                new Skill() { Name = "SASS" }, 
-                new Skill() { Name = "CSS3" },
-                new Skill() { Name = "AJAX" }, 
-                new Skill() { Name = "Git" },
-                new Skill() { Name = "ASP.NET C#" }, 
-                new Skill() { Name = "MVC" },
-                new Skill() { Name = "Unit Testing" }, 
-                new Skill() { Name = "Bash" },
-                new Skill() { Name = "Linux" }, 
-                new Skill() { Name = "Node.js" },
-                new Skill() { Name = "Front-End" }, 
-                new Skill() { Name = "Back-End" },
-                new Skill() { Name = "SQL" },
-                new Skill() { Name = "Python" },
-                new Skill() { Name = "DevOps" }
-                );
+            
 
             if (!context.Roles.Any(r => r.Name == "Admin"))
             {
