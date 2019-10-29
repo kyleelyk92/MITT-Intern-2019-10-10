@@ -93,11 +93,16 @@ namespace MITT_Intern_2019_10_10.Controllers
                 Company s = new Company { UserName = company.Email, Email = company.Email };
                 var result = UM.Create(s, password);
 
-
                 if (result.Succeeded)
                 {
+                    MessageCarrier mc = new MessageCarrier() { actn = "Index", ctrller = "Companies", message = "Succesfully created company" } ;
+
                     db.SaveChanges();
-                    return RedirectToAction("MessagePage", "Home", new{ Message="Successfully created company", messageValues = new { path = "\\Companies\\Index", controller = "Companies", action = "Index"} });
+                    return RedirectToAction("MessagePage", "Home", mc);
+                }
+                else
+                {
+                    return View(company);
                 }
             }
             return View(company);

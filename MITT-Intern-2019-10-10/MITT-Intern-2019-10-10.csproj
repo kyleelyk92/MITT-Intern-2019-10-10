@@ -264,6 +264,10 @@
     <Compile Include="Migrations\201910281953545_movedSkillsFromCompanyToPosting.Designer.cs">
       <DependentUpon>201910281953545_movedSkillsFromCompanyToPosting.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201910291932027_updatedSomeStuff.cs" />
+    <Compile Include="Migrations\201910291932027_updatedSomeStuff.Designer.cs">
+      <DependentUpon>201910291932027_updatedSomeStuff.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Company.cs" />
@@ -424,6 +428,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201910281953545_movedSkillsFromCompanyToPosting.resx">
       <DependentUpon>201910281953545_movedSkillsFromCompanyToPosting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910291932027_updatedSomeStuff.resx">
+      <DependentUpon>201910291932027_updatedSomeStuff.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

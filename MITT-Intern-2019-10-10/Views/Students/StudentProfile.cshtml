@@ -1,54 +1,31 @@
-﻿@model MITT_Intern_2019_10_10.Models.StudentViewModel
-
+﻿@using Microsoft.AspNet.Identity
+@model MITT_Intern_2019_10_10.Models.StudentViewModel
 @{
     ViewBag.Title = "StudentProfile";
 }
 
-<h2>StudentProfile</h2>
-
+@if (Model.LastName  != null && Model.FirstName != null )
+{
+<h2>@Model.FirstName @Model.LastName</h2>
+}
+else
+{
+    <h2>@Model.UserName</h2>
+}
 <div id="MainContainer" class="mainContainer">
     <!--Top section will have both images, layered with profile picture on top-->
     <div id="topSection" class="topSection">
 
-
+        <!--all the different ways the pictures can load that i couldn't figure out a nice way to do-->
         @if (Model.HeaderImage != null && Model.ProfileImage != null)
-        {
-            <div class="imageSection" style="background-image: url('../../uploads/@Model.Id/headerImage/@Model.HeaderImage')">
-                <!--<img id="headerImg" class="headerImg" style="" src="~/uploads/@Model.Id/headerImage/@Model.HeaderImage" alt="avatar" />
-            -->
-                <img id="profileImg" class="profileImg" style="" src="~/uploads/@Model.Id/profileImage/@Model.ProfileImage" alt="avatar" />
-
-            </div>
-        }
+        {<div class="imageSection" style="background-image: url('../../uploads/@Model.Id/headerImage/@Model.HeaderImage')"><img id="profileImg" class="profileImg" style="" src="~/uploads/@Model.Id/profileImage/@Model.ProfileImage" alt="avatar" /></div>}
         else if (Model.HeaderImage != null && Model.ProfileImage == null)
-        {
-            <div class="imageSection" style="background-image: url('../../uploads/@Model.Id/headerImage/@Model.HeaderImage')">
-                <!--<img id="headerImg" class="headerImg" style="" src="~/uploads/@Model.Id/headerImage/@Model.HeaderImage" alt="avatar" />
-            -->
-                <img id="profileImg" class="profileImg" style="" src="~/DefaultImages/avatar1.png" alt="avatar" />
-
-            </div>
-        }
+        {<div class="imageSection" style="background-image: url('../../uploads/@Model.Id/headerImage/@Model.HeaderImage')"><img id="profileImg" class="profileImg" style="" src="~/DefaultImages/avatar1.png" alt="avatar" /></div>}
         else if (Model.HeaderImage == null && Model.ProfileImage != null)
-        {
-            <div class="imageSection" style="background-image: url('https://macrovista.com/wp-content/uploads/2018/02/header-placeholder.png')">
-                <!--<img id="headerImg" class="headerImg" style="" src="~/uploads/@Model.Id/headerImage/@Model.HeaderImage" alt="avatar" />
-            -->
-                <img id="profileImg" class="profileImg" style="" src="~/uploads/@Model.Id/profileImage/@Model.ProfileImage" alt="avatar" />
-
-            </div>
-        }
+        {<div class="imageSection" style="background-image: url('https://macrovista.com/wp-content/uploads/2018/02/header-placeholder.png')"><img id="profileImg" class="profileImg" style="" src="~/uploads/@Model.Id/profileImage/@Model.ProfileImage" alt="avatar" /></div>}
         else
-        {
-            <div class="imageSection" style="background-image: url('https://macrovista.com/wp-content/uploads/2018/02/header-placeholder.png')">
-                <!--<img id="headerImg" class="headerImg" style="" src="~/uploads/@Model.Id/headerImage/@Model.HeaderImage" alt="avatar" />
-            -->
-                <img id="profileImg" class="profileImg" style="" src="~/DefaultImages/avatar1.png" alt="avatar" />
+        {<div class="imageSection" style="background-image: url('https://macrovista.com/wp-content/uploads/2018/02/header-placeholder.png')"><img id="profileImg" class="profileImg" style="" src="~/DefaultImages/avatar1.png" alt="avatar" /></div>}
 
-            </div>
-        }
-
-        <!--Set the height and stuff up in here-->
 
     </div>
     <div id="bottomSection" style="display:flex; flex-direction: row">
@@ -96,6 +73,13 @@
                     <li>@skill.Name</li>
                 }
             </ul>
+            @if(User.Identity.GetUserId() == Model.Id)
+            {
+                <div style="display:flex; justify-content:space-between; width: 300px; flex-direction: row;">
+                    @Html.ActionLink("Add skills", "AddSkills", new { studentId = Model.Id })
+                    @Html.ActionLink("Remove skills", "RemoveSkills", new { studentId = Model.Id })
+                </div>
+            }
         </div>
     </div>
 </div>
