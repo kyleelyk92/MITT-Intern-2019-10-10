@@ -36,10 +36,10 @@ namespace MITT_Intern_2019_10_10.Controllers
             return View();
         }
         [HttpGet]
-        public ActionResult MessagePage(string Message, object messageValues)
+        public ActionResult MessagePage([Bind(Include = "actn,controller,message")] MessageCarrier mc)
         {
-            ViewBag.Message = Message;
-            return View();
+
+            return View(mc);
         }
     }
 }

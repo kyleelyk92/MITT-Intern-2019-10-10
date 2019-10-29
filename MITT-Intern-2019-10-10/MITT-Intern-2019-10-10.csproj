@@ -269,7 +269,7 @@
     <Compile Include="Models\Helper.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\MessageObject.cs" />
+    <Compile Include="Models\MessageCarrier.cs" />
     <Compile Include="Models\OtherModels\Message.cs" />
     <Compile Include="Models\OtherModels\Resume.cs" />
     <Compile Include="Models\Posting.cs" />

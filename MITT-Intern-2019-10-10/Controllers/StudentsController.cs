@@ -127,14 +127,17 @@ namespace MITT_Intern_2019_10_10.Controllers
             if (ModelState.IsValid)
             {
                 Student s = new Student { UserName = student.Email, Email = student.Email };
-                userManager.Create(s, password);
 
                 var result = Um.Create(s, password);
 
+                if (result.Succeeded)
+                {
+                    MessageCarrier messCarr = new MessageCarrier() { actn = "Index", controller = "Students", message = "Successfully enrolled student" };
+                    db.SaveChanges();
+                    return RedirectToAction("MessagePage", "Home", new { messageCarrier = messCarr });
+                }
 
-
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                
             }
             return View(student);
         }

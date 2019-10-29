@@ -1,13 +1,17 @@
-﻿
+﻿@model MITT_Intern_2019_10_10.Models.MessageCarrier
 @{
     ViewBag.Title = "MessagePage";
 }
 
 <h2>MessagePage</h2>
 
-@if(ViewBag.Message != null)
+@if(Model != null)
 {
     <div>
-        <p>@ViewBag.Message</p>
+        <p>@Model.message</p>
     </div>
+}
+@if(Model != null)
+{
+    @Html.ActionLink("Continue", Model.actn, Model.controller);
 }

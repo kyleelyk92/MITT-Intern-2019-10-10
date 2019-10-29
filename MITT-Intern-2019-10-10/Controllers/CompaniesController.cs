@@ -86,16 +86,20 @@ namespace MITT_Intern_2019_10_10.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Email,UserName")] Company company)
+        public ActionResult Create([Bind(Include = "Email,UserName")] Company company, string password)
         {
             if (ModelState.IsValid)
             {
-                UM.Create(company, "Password1!");
+                Company s = new Company { UserName = company.Email, Email = company.Email };
+                var result = UM.Create(s, password);
 
-                db.SaveChanges();
-                return RedirectToAction("Index");
+
+                if (result.Succeeded)
+                {
+                    db.SaveChanges();
+                    return RedirectToAction("MessagePage", "Home", new{ Message="Successfully created company", messageValues = new { path = "\\Companies\\Index", controller = "Companies", action = "Index"} });
+                }
             }
-
             return View(company);
         }
 
