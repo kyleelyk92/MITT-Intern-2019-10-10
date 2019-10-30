@@ -27,7 +27,7 @@ namespace MITT_Intern_2019_10_10.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Posting posting = db.Postings.Find(id);
+            Posting posting = db.Postings.Include(x => x.Company).FirstOrDefault(x => x.Id == id);
             if (posting == null)
             {
                 return HttpNotFound();

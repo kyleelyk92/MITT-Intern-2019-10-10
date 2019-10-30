@@ -264,6 +264,14 @@
     <Compile Include="Migrations\201910281953545_movedSkillsFromCompanyToPosting.Designer.cs">
       <DependentUpon>201910281953545_movedSkillsFromCompanyToPosting.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201910291817522_addedNavigatorToCompanyFromPosting.cs" />
+    <Compile Include="Migrations\201910291817522_addedNavigatorToCompanyFromPosting.Designer.cs">
+      <DependentUpon>201910291817522_addedNavigatorToCompanyFromPosting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910292002348_initial11111.cs" />
+    <Compile Include="Migrations\201910292002348_initial11111.Designer.cs">
+      <DependentUpon>201910292002348_initial11111.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Company.cs" />
@@ -424,6 +432,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201910281953545_movedSkillsFromCompanyToPosting.resx">
       <DependentUpon>201910281953545_movedSkillsFromCompanyToPosting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910291817522_addedNavigatorToCompanyFromPosting.resx">
+      <DependentUpon>201910291817522_addedNavigatorToCompanyFromPosting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910292002348_initial11111.resx">
+      <DependentUpon>201910292002348_initial11111.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -19,6 +19,7 @@ namespace MITT_Intern_2019_10_10.Models
         public DateTime PostingDate { get; set; }
         public DateTime ClosingDate { get; set; }
         public List<Skill> Skills { get; set; }
-
+        public string CompanyId { get; set; }
+        public Company Company { get; set; }
     }
 }
