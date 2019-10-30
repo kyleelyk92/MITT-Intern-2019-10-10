@@ -7,11 +7,19 @@ using System.Web;
 
 namespace MITT_Intern_2019_10_10.Models
 {
+
     public class Student : ApplicationUser
     {
+        public Student()
+        {
+            Teachers = new HashSet<Teacher>();
+            Skills = new HashSet<Skill>();
+            Postings = new HashSet<Posting>();
+        }
         public HashSet<Teacher> Teachers { get; set; }
         public SchoolProgram SchoolProgram { get; set; }
-        public List<Skill> Skills { get; set; }
+        public HashSet<Skill> Skills { get; set; }
+        public HashSet<Posting> Postings { get; set; }
     }
     public class StudentViewModel
     {
@@ -24,7 +32,7 @@ namespace MITT_Intern_2019_10_10.Models
         public string ProfileImage { get; set; }
         public string HeaderImage { get; set; }
         public string Bio { get; set; }
-        public List<Skill> Skills { get; set; }
+        public HashSet<Skill> Skills { get; set; }
     }
 
     public class StudentRegisterModel
