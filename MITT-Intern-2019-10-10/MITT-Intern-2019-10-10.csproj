@@ -276,6 +276,10 @@
     <Compile Include="Migrations\201910292002348_initial11111.Designer.cs">
       <DependentUpon>201910292002348_initial11111.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201910300252454_seewat.cs" />
+    <Compile Include="Migrations\201910300252454_seewat.Designer.cs">
+      <DependentUpon>201910300252454_seewat.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Company.cs" />
@@ -445,6 +449,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201910291932027_updatedSomeStuff.resx">
       <DependentUpon>201910291932027_updatedSomeStuff.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910300252454_seewat.resx">
+      <DependentUpon>201910300252454_seewat.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -21,5 +21,6 @@ namespace MITT_Intern_2019_10_10.Models
         public List<Skill> Skills { get; set; }
         public string CompanyId { get; set; }
         public Company Company { get; set; }
+        public List<Student> Applicants { get; set; }
     }
 }
