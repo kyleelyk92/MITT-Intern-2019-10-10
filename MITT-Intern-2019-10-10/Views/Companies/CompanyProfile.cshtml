@@ -21,8 +21,8 @@
     <hr />
     @if (Model.ProfileImage != null)
     {
-        <div class="center-block" style="display:flex; margin-bottom:50px">
-            <img class="center-cropped" style="width:250px;height:250px;" src="~/uploads/@Model.Id/profileImage/@Model.ProfileImage" alt="avatar" />
+        <div class="center-block" style="display:flex; margin:0 auto 50px auto">
+            <img class="center-cropped" style="width:250px;height:250px;margin:auto" src="~/uploads/@Model.Id/profileImage/@Model.ProfileImage" alt="avatar" />
         </div>
     }
     else
