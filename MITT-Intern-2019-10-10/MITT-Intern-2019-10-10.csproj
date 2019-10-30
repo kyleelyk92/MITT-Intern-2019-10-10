@@ -268,6 +268,18 @@
     <Compile Include="Migrations\201910291932027_updatedSomeStuff.Designer.cs">
       <DependentUpon>201910291932027_updatedSomeStuff.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201910291817522_addedNavigatorToCompanyFromPosting.cs" />
+    <Compile Include="Migrations\201910291817522_addedNavigatorToCompanyFromPosting.Designer.cs">
+      <DependentUpon>201910291817522_addedNavigatorToCompanyFromPosting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910292002348_initial11111.cs" />
+    <Compile Include="Migrations\201910292002348_initial11111.Designer.cs">
+      <DependentUpon>201910292002348_initial11111.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910300252454_seewat.cs" />
+    <Compile Include="Migrations\201910300252454_seewat.Designer.cs">
+      <DependentUpon>201910300252454_seewat.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\201910301830157_addedSomeStuffToStudent.cs" />
     <Compile Include="Migrations\201910301830157_addedSomeStuffToStudent.Designer.cs">
       <DependentUpon>201910301830157_addedSomeStuffToStudent.cs</DependentUpon>
@@ -434,11 +446,20 @@
     <EmbeddedResource Include="Migrations\201910281953545_movedSkillsFromCompanyToPosting.resx">
       <DependentUpon>201910281953545_movedSkillsFromCompanyToPosting.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910291817522_addedNavigatorToCompanyFromPosting.resx">
+      <DependentUpon>201910291817522_addedNavigatorToCompanyFromPosting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910292002348_initial11111.resx">
+      <DependentUpon>201910292002348_initial11111.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201910291932027_updatedSomeStuff.resx">
       <DependentUpon>201910291932027_updatedSomeStuff.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201910301830157_addedSomeStuffToStudent.resx">
       <DependentUpon>201910301830157_addedSomeStuffToStudent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910300252454_seewat.resx">
+      <DependentUpon>201910300252454_seewat.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
