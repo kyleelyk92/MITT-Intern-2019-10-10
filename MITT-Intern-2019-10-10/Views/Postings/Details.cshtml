@@ -14,11 +14,13 @@
             @Html.DisplayFor(model => model.Title)
         </h1>
 
-        <div style="display:flex;flex-direction:row;margin: 20px 0px;">
-            <img src="~/uploads/@Model.Company.Id/profileImage/@Model.Company.ProfileImage" alt="avatar" />
-            <div style="font-size:20px; margin-left:15px">
-                @Html.DisplayFor(model => model.Company.CompanyName)
-            </div>
+        <div style="margin: 20px 0px;">
+            <a href="/Companies/CompanyProfile?id=@Model.Company.Id" style="justify-content:center;display:flex;flex-direction:row;max-width:200px">
+                <img style="max-width:50px" src="~/uploads/@Model.Company.Id/profileImage/@Model.Company.ProfileImage" alt="avatar" />
+                <div style="font-size:20px; margin-left:15px;font-size:25px;display:inline-block;margin: 0 15px">
+                    @Html.DisplayFor(model => model.Company.CompanyName)
+                </div>
+            </a>
         </div>
 
         <div style="max-width:700px;margin:20px auto">

@@ -38,6 +38,7 @@ namespace MITT_Intern_2019_10_10.Controllers
         // GET: Postings/Create
         public ActionResult Create()
         {
+            ViewBag.Skills = db.Skills.ToList();
             return View();
         }
 
