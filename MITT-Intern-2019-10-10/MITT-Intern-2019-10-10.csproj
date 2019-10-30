@@ -280,6 +280,10 @@
     <Compile Include="Migrations\201910300252454_seewat.Designer.cs">
       <DependentUpon>201910300252454_seewat.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201910301830157_addedSomeStuffToStudent.cs" />
+    <Compile Include="Migrations\201910301830157_addedSomeStuffToStudent.Designer.cs">
+      <DependentUpon>201910301830157_addedSomeStuffToStudent.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Company.cs" />
@@ -403,6 +407,7 @@
     <Content Include="Views\Postings\Details.cshtml" />
     <Content Include="Views\Postings\Edit.cshtml" />
     <Content Include="Views\Postings\Index.cshtml" />
+    <Content Include="Views\Students\AddResume.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\App_LocalResources\" />
@@ -449,6 +454,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201910291932027_updatedSomeStuff.resx">
       <DependentUpon>201910291932027_updatedSomeStuff.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910301830157_addedSomeStuffToStudent.resx">
+      <DependentUpon>201910301830157_addedSomeStuffToStudent.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201910300252454_seewat.resx">
       <DependentUpon>201910300252454_seewat.cs</DependentUpon>
