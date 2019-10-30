@@ -15,11 +15,14 @@ namespace MITT_Intern_2019_10_10.Models
             Teachers = new HashSet<Teacher>();
             Skills = new HashSet<Skill>();
             Postings = new HashSet<Posting>();
+            HasResume = false;
         }
         public HashSet<Teacher> Teachers { get; set; }
         public SchoolProgram SchoolProgram { get; set; }
         public HashSet<Skill> Skills { get; set; }
         public HashSet<Posting> Postings { get; set; }
+        public bool HasResume { get; set; }
+        public string ResumeLink { get; set; }
     }
     public class StudentViewModel
     {

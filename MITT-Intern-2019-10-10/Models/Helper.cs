@@ -24,8 +24,6 @@ namespace MITT_Intern_2019_10_10.Models
             string saveId = userId;
             string filetype = "";
 
-
-
             //filepath goes like this
             //~\\uploads\\ID\\images OR ~\\uploads\\ID\\resume
 

@@ -174,12 +174,28 @@
             </p>
         </div>
     }
-
+    <div>
+        @if (Model.HasResume)
+        {
+        <div>
+            <div>Change Resume</div>
+            @Html.ActionLink("Change Resume", "AddResume", new { studentId = Model.Id })
+        </div>
+        }
+        else
+        {
+            <div>
+                <div>Upload new resume</div>
+                @Html.ActionLink("Upload new resume", "AddResume", new { studentId = Model.Id})
+            </div>
+        }
+        
+    </div>
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

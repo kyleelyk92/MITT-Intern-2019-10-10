@@ -1,0 +1,14 @@
+﻿@model MITT_Intern_2019_10_10.Models.Student
+
+@{
+    ViewBag.Title = "AddResume";
+}
+
+<h2>AddResume</h2>
+
+@using (Html.BeginForm("AddResume", "Students", FormMethod.Post))
+{
+    <label for="file">Upload/Change Profile Image:</label>
+    <input type="file" onchange="readURL(this, document.getElementById('profileImg'))" name="resume" id="resume" style="width: 100%;" />
+    <input type="submit" value="Submit" />
+}

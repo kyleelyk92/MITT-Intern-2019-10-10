@@ -434,6 +434,26 @@ namespace MITT_Intern_2019_10_10.Controllers
             db.SaveChanges();
             return RedirectToAction("MessagePage","Home", new { studentId = studentId, programId = programId, programName = program.Title, Message = "Updated student program"});
         }
+
+        public ActionResult AddResume(string studentId)
+        {
+            Student s = db.Students.Find(studentId);
+            return View(s);
+        }
+
+        [HttpPost]
+        public ActionResult AddResume(string studentId, HttpPostedFileBase resume)
+        {
+            string filepath = Helper.SaveFileFromUser(studentId, resume, Server.MapPath("~"), "");
+            var student = db.Students.Find(studentId);
+            student.HasResume = true;
+            student.ResumeLink = filepath;
+
+            db.SaveChanges();
+            
+            return RedirectToAction("MessagePage", "Home", new MessageCarrier() {ctrller = "Students", actn="Edit", UserId = studentId, message="Succesfully uploaded resume" });
+        }
+        
     }
     
     #endregion
