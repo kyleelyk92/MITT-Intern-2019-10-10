@@ -150,7 +150,7 @@
     <div>
         <h2>Skills Section</h2>
     </div>
-
+    @Html.ActionLink("Add skills", "AddSkills", new { studentId = Model.Id })
     if (Model.Skills != null)
     {
         foreach (var skill in Model.Skills)

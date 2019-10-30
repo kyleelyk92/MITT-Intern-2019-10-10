@@ -6,9 +6,10 @@
 
 <h2>AddResume</h2>
 
-@using (Html.BeginForm("AddResume", "Students", FormMethod.Post))
+@using (Html.BeginForm("AddResume", "Students", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
+    @Html.Hidden("studentId", new {studentId = Model.Id} )
     <label for="file">Upload/Change Profile Image:</label>
-    <input type="file" onchange="readURL(this, document.getElementById('profileImg'))" name="resume" id="resume" style="width: 100%;" />
+    <input type="file" onchange="readURL(this, document.getElementById('resume'))" name="resume" id="resume" style="width: 100%;" />
     <input type="submit" value="Submit" />
 }

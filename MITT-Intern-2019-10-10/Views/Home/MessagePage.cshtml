@@ -5,13 +5,23 @@
 
 <h2>MessagePage</h2>
 
-@if(Model != null)
+@if (Model != null)
 {
     <div>
         <p>@Model.message</p>
     </div>
 }
-@if(Model != null)
+@if (Model != null)
 {
-    @Html.ActionLink("Continue", Model.actn, Model.ctrller);
+    if (Model.UserId != null)
+    {
+        
+        <div>\\\\\\\\\\\\\\\\\\\\\\\\\\</div>
+        @Html.ActionLink("Continue", Model.actn, Model.ctrller, new { id = Model.UserId }, null);
+        
+    }
+    else
+    {
+        @Html.ActionLink("Continue", Model.actn, Model.ctrller);
+    }
 }

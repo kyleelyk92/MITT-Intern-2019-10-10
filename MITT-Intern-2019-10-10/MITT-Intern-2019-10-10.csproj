@@ -284,6 +284,10 @@
     <Compile Include="Migrations\201910301830157_addedSomeStuffToStudent.Designer.cs">
       <DependentUpon>201910301830157_addedSomeStuffToStudent.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201910301834440_seewhatsgoingon.cs" />
+    <Compile Include="Migrations\201910301834440_seewhatsgoingon.Designer.cs">
+      <DependentUpon>201910301834440_seewhatsgoingon.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Company.cs" />
@@ -408,6 +412,7 @@
     <Content Include="Views\Postings\Edit.cshtml" />
     <Content Include="Views\Postings\Index.cshtml" />
     <Content Include="Views\Students\AddResume.cshtml" />
+    <Content Include="Views\Students\StudentHomePage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\App_LocalResources\" />
@@ -460,6 +465,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201910300252454_seewat.resx">
       <DependentUpon>201910300252454_seewat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910301834440_seewhatsgoingon.resx">
+      <DependentUpon>201910301834440_seewhatsgoingon.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

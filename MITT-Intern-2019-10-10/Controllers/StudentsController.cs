@@ -152,7 +152,7 @@ namespace MITT_Intern_2019_10_10.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Student student = db.Students.Where(s => s.Id == id).Include(st => st.SchoolProgram).FirstOrDefault();
+            Student student = db.Students.Where(s => s.Id == id).Include(stude => stude.Skills).Include(st => st.SchoolProgram).FirstOrDefault();
 
             if (student == null)
             {
@@ -287,7 +287,7 @@ namespace MITT_Intern_2019_10_10.Controllers
                 Skills = s.Skills,
                 UserName = s.UserName
             };
-            return View(svm);
+            return View(s);
         }
 
         public ActionResult PracticeFileUpload()
@@ -449,11 +449,55 @@ namespace MITT_Intern_2019_10_10.Controllers
             student.HasResume = true;
             student.ResumeLink = filepath;
 
+            //delete old resume
+            if (student.ResumeLink != null)
+            {
+                var filesToDelete = Directory.GetFiles(String.Format("{0}\\uploads\\{1}\\resume\\", Server.MapPath("~"), student.Id));
+
+                foreach (var file in filesToDelete)
+                {
+                    var fileName = file.Substring(file.LastIndexOf("\\") + 1);
+
+                    if (fileName != student.ResumeLink)
+                    {
+                        System.IO.File.Delete(file);
+                    }
+                }
+            }
+
             db.SaveChanges();
             
             return RedirectToAction("MessagePage", "Home", new MessageCarrier() {ctrller = "Students", actn="Edit", UserId = studentId, message="Succesfully uploaded resume" });
         }
-        
+
+        public ActionResult StudentHomePage()
+        {
+            var userId = User.Identity.GetUserId();
+            Student user = db.Students.Include(stu => stu.SchoolProgram).FirstOrDefault(st => st.Id == userId);
+
+            if (user != null)
+            {
+                //myId = e2ce1084-4830-460d-a819-e28e8a30bc16
+                
+                if (user.SchoolProgram != null)
+                {
+                    var sp = user.SchoolProgram;
+                    var postings = db.Postings.Where(posting => posting.SchoolProgram.Id == sp.Id).ToList();
+                    return View(postings);
+                }
+                else
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+            }
+            else
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+            }
+
+            
+            
+        }
     }
     
     #endregion
