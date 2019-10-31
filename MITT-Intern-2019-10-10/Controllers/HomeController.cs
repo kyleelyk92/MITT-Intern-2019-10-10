@@ -3,18 +3,33 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using MITT_Intern_2019_10_10.Models;
 namespace MITT_Intern_2019_10_10.Controllers
 {
     public class HomeController : Controller
     {
+        private ApplicationDbContext db = new ApplicationDbContext();
+
         public ActionResult Index()
         {
-
-            //Student student = new Student();
-            //Helper.SaveFileFromUser(student);
-
+            var userId = User.Identity.GetUserId();
             
+            if (db.Companies.Find(userId) != null)
+            {
+                RedirectToAction("CompanyProfile", "Companies", new { id = userId});
+            }
+            else if (db.Students.Find(userId) != null)
+            {
+                RedirectToAction("StudentHomePage", "Students", new { });
+            }
+            else if (userId == null)
+            {
+                RedirectToAction("HomePage","Home", new { });
+            }
+
+
+
             return View();
         }
         public ActionResult HomePage()

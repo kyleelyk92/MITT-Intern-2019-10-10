@@ -129,7 +129,7 @@ namespace MITT_Intern_2019_10_10.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
 
-        public ActionResult Edit([Bind(Include = "Id,CompanyName,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName,Bio,Skills,SchoolProgram,Teachers,ProfileImage,HeaderImage")] Company company, HttpPostedFileBase profileImage, HttpPostedFileBase headerImage)
+        public ActionResult Edit([Bind(Include = "Id,CompanyName,Email,PhoneNumber,UserName,Bio,Skills,SchoolProgram,Teachers,ProfileImage,HeaderImage")] Company company, HttpPostedFileBase profileImage, HttpPostedFileBase headerImage)
         {
             if (ModelState.IsValid)
             {
@@ -180,7 +180,7 @@ namespace MITT_Intern_2019_10_10.Controllers
                 }
                 db.Entry(company).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("CompanyProfile", new { id = company.Id});
             }
             return View(company);
         }
