@@ -8,6 +8,9 @@ using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using MITT_Intern_2019_10_10.Models;
+using System.Net.Mail;
+using System.IO;
+
 
 namespace MITT_Intern_2019_10_10.Controllers
 {
@@ -138,25 +141,73 @@ namespace MITT_Intern_2019_10_10.Controllers
             base.Dispose(disposing);
         }
 
-        //public ActionResult ApplyToPosting(string userId, string postingId)
-        //{
-        //    var student = db.Students.Find(userId);
-        //    //if user is not a student they get kicked back to the posting index
-        //    if(student == null)
-        //    {
-        //        return RedirectToAction("Index");
-        //    }
+        public ActionResult ApplyToPosting(string userId, int postingId)
+        {
+            var student = db.Students.Find(userId);
+            //if user is not a student they get kicked back to the posting index
+            if (student == null)
+            {
+                return RedirectToAction("Index");
+            }
+            ViewBag.StudentId = student.Id;
+            var posting = db.Postings.Include(po => po.Company).FirstOrDefault(x => x.Id == postingId);
+            return View(posting);
+            //this is the page to load up and make an email
+        }
+        [HttpPost]
+        public ActionResult ApplyToPosting(string userId, int postingId, string coverLetter)
+        {
 
-        //    //this is the page to load up and make an email
-        //}
-        //[HttpPost]
-        //public ActionResult ApplyToPosting(string userId, int postingId, string coverLetterContent)
-        //{
-        //    var student = db.Students.Find(userId);
-        //    Posting posting = db.Postings.Include(x => x.Company).FirstOrDefault(post => post.Id == postingId);
+            var student = db.Students.FirstOrDefault(stud => stud.Id == userId);
+            
+            Posting posting = db.Postings.Include(x => x.Company).FirstOrDefault(post => post.Id == postingId);
 
-        //    Company company = posting.Company;
+            string companyId = posting.Company.Id;
 
-        //}
+            Company company = db.Companies.Find(companyId);
+            
+            if(posting != null && student != null)
+            {
+                //send an email to the company email
+                
+                if (student.ResumeLink.Length > 0)
+                {
+                    MailMessage mail = new MailMessage("MITTinternships@MITT.ca", company.Email);
+                    mail.Body = "A user has replied to your internship posting on MITT INTERN STUDENT PORTAL PATENT PENDING Check out their resume";
+
+                    string routeToResume = String.Format(Server.MapPath("~") + "uploads\\{0}\\{1}\\{2}", student.Id, "resume", student.ResumeLink);
+                    byte[] resumeBytes = System.IO.File.ReadAllBytes(routeToResume);
+
+                    mail.Subject = "A new student has applied to your internship opportunity";
+                    mail.To.Add(company.Email);
+                    mail.To.Add("kyleelyk92@hotmail.com");
+
+                    Attachment attachment = new Attachment(routeToResume);
+                    mail.Attachments.Add(attachment);
+
+                    //i don't have an smtp server
+                    var credentials = new NetworkCredential("kyleelyk1992@gmail.com", "Starcraft2!");
+                    // Smtp client
+                    var smtp = new SmtpClient()
+                    {
+                        Port = 587,
+                        DeliveryMethod = SmtpDeliveryMethod.Network,
+                        UseDefaultCredentials = false,
+                        Host = "smtp.gmail.com",
+                        EnableSsl = true,
+                        Credentials = credentials
+                    };
+                    smtp.Send(mail);
+
+                    if(!student.Postings.Contains(posting) == false)
+                    {
+                        student.Postings.Add(posting);
+                    }
+                    db.SaveChanges();
+                }
+            }
+            MessageCarrier mc = new MessageCarrier() { actn = "StudentProfile", ctrller = "Students", UserId = student.Id, message = "Succesfully applied to the posting" };
+            return RedirectToAction("MessagePage", "Home", mc);
+        }
     }
 }

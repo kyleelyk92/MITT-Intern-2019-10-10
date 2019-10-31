@@ -80,21 +80,7 @@ namespace MITT_Intern_2019_10_10.Controllers
 
         // GET: Students/Details/5
 
-        public ActionResult DetailsShort(string id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-
-            Student student = db.Students.Find(id);
-            if (student == null)
-            {
-                return HttpNotFound();
-            }
-            return View(student);
-        }
-
+        [Authorize(Roles="Admin")]
         public ActionResult Details(string id)
         {
             if (id == null)
@@ -112,11 +98,24 @@ namespace MITT_Intern_2019_10_10.Controllers
         // GET: Students/Create
         public ActionResult Create()
         {
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+            {
+                var userId = User.Identity.GetUserId();
+                var findStudent = db.Students.Find(userId);
+                
+                if (findStudent != null)
+                {
+                    RedirectToAction("StudentProfile", "Students");
+                }
+
+                var findCompany = db.Companies.Find(userId);
+                if(findCompany != null)
+                {
+                    RedirectToAction("CompanyProfile", "Companies");
+                }
+            }
             return View();
         }
-
-
-
         // POST: Students/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -148,17 +147,21 @@ namespace MITT_Intern_2019_10_10.Controllers
         // GET: Students/Edit/5
         public ActionResult Edit(string id)
         {
-            if (id == null)
+            if(User.IsInRole("Admin") || User.Identity.GetUserId() == id)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Student student = db.Students.Where(s => s.Id == id).Include(stude => stude.Skills).Include(st => st.SchoolProgram).FirstOrDefault();
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Student student = db.Students.Where(s => s.Id == id).Include(stude => stude.Skills).Include(st => st.SchoolProgram).FirstOrDefault();
 
-            if (student == null)
-            {
-                return HttpNotFound();
+                if (student == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(student);
             }
-            return View(student);
+            return RedirectToAction("MessagePage", "Home", new MessageCarrier() { actn = "Index", ctrller = "Home", message = "Not allowed to edit this person's page" });
         }
 
         // POST: Students/Edit/5
@@ -273,20 +276,20 @@ namespace MITT_Intern_2019_10_10.Controllers
             {
                 return HttpNotFound();
             }
-
-            StudentViewModel svm = new StudentViewModel()
-            {
-                Id = s.Id,
-                Bio = s.Bio,
-                Email = s.Email,
-                FirstName = s.FirstName,
-                LastName = s.LastName,
-                SchoolProgram = s.SchoolProgram,
-                HeaderImage = s.HeaderImage,
-                ProfileImage = s.ProfileImage,
-                Skills = s.Skills,
-                UserName = s.UserName
-            };
+            //didn't implement this view model because i needed almost all of the things from student
+            //StudentViewModel svm = new StudentViewModel();
+            //{
+            //    Id = s.Id,
+            //    Bio = s.Bio,
+            //    Email = s.Email,
+            //    FirstName = s.FirstName,
+            //    LastName = s.LastName,
+            //    SchoolProgram = s.SchoolProgram,
+            //    HeaderImage = s.HeaderImage,
+            //    ProfileImage = s.ProfileImage,
+            //    Skills = s.Skills,
+            //    UserName = s.UserName
+            //};
             return View(s);
         }
 
@@ -476,12 +479,15 @@ namespace MITT_Intern_2019_10_10.Controllers
 
             if (user != null)
             {
-                //myId = e2ce1084-4830-460d-a819-e28e8a30bc16
-                
+                Student student = db.Students.Find(userId);
+                ViewBag.StudentFirstName = student.FirstName;
+
                 if (user.SchoolProgram != null)
                 {
                     var sp = user.SchoolProgram;
-                    var postings = db.Postings.Where(posting => posting.SchoolProgram.Id == sp.Id).ToList();
+                    var ProgId = sp.Id;
+                    
+                    var postings = db.Postings.Include(x => x.SchoolProgram).Where(posting => posting.SchoolProgram.Id == ProgId).ToList();
                     return View(postings);
                 }
                 else
@@ -491,7 +497,7 @@ namespace MITT_Intern_2019_10_10.Controllers
             }
             else
             {
-                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+                return RedirectToAction("Index", "Home");
             }
         }
     }
