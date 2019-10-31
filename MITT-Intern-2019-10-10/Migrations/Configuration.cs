@@ -90,8 +90,6 @@ namespace MITT_Intern_2019_10_10.Migrations
                 new SchoolProgram() { Title = "Automotive" }
                 );
 
-            
-
             if (!context.Roles.Any(r => r.Name == "Admin"))
             {
                 var store = new RoleStore<IdentityRole>(context);
