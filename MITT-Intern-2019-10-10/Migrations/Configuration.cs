@@ -19,6 +19,23 @@ namespace MITT_Intern_2019_10_10.Migrations
         {
             var db = context;
 
+            var roleStore = new RoleStore<IdentityRole>(db);
+            var roleManager = new RoleManager<IdentityRole>(roleStore);
+
+            IdentityRole admin = new IdentityRole { Name = "Admin" };
+            IdentityRole student = new IdentityRole { Name = "Student" };
+            IdentityRole company = new IdentityRole { Name = "Company" };
+            IdentityRole teacher = new IdentityRole { Name = "Teacher" };
+
+
+            if (!context.Roles.Any(r => r.Name == "Admin"))
+            {
+                roleManager.Create(admin);
+                roleManager.Create(student);
+                roleManager.Create(company);
+                roleManager.Create(teacher);
+            }
+
             var softwareDev = new SchoolProgram() { Title = "Software Developer" };
 
             var js = new Skill() { Name = "Javascript" };
@@ -63,7 +80,7 @@ namespace MITT_Intern_2019_10_10.Migrations
                 usermanager.Create(new Company() { UserName = "GQMag", Email = "gq@gq.com" }, "Password1!");
 
                 var bold = new Company() { UserName = "BoldContentBS", Email = "BOLD@bold.com" };
-
+                
                 usermanager.Create(bold, "Password1!");
 
                 var post = new Posting()
@@ -83,23 +100,17 @@ namespace MITT_Intern_2019_10_10.Migrations
 
                 bold.Postings.Add(post);
 
-                
+                bold.Roles.Add(new IdentityUserRole { RoleId = company.Id});
+                kyle.Roles.Add(new IdentityUserRole { RoleId = student.Id });
+
+
             }
             db.Programs.AddOrUpdate(x => x.Title,
                 new SchoolProgram() { Title = "Culinary" },
                 new SchoolProgram() { Title = "Automotive" }
                 );
 
-            if (!context.Roles.Any(r => r.Name == "Admin"))
-            {
-                var store = new RoleStore<IdentityRole>(context);
-                var roleManager = new RoleManager<IdentityRole>(store);
-
-                roleManager.Create(new IdentityRole { Name = "Admin" });
-                roleManager.Create(new IdentityRole { Name = "Student" });
-                roleManager.Create(new IdentityRole { Name = "Company" });
-                roleManager.Create(new IdentityRole { Name = "Teacher" });
-            }
+           
             db.SaveChanges();
         }
     }

@@ -20,7 +20,7 @@ namespace MITT_Intern_2019_10_10.Controllers
 
             if (companyCheck != null)
             {
-                RedirectToAction("CompanyProfile", "Companies", new { id = userId});
+                return RedirectToAction("CompanyProfile", "Companies", new { id = userId});
             }
             else if (studentCheck != null)
             {
