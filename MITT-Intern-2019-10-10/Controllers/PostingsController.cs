@@ -143,7 +143,7 @@ namespace MITT_Intern_2019_10_10.Controllers
 
         public ActionResult ApplyToPosting(string userId, int postingId)
         {
-            var student = db.Students.Find(userId);
+            var student = db.Students.FirstOrDefault(x => x.Id == userId);
             //if user is not a student they get kicked back to the posting index
             if (student == null)
             {

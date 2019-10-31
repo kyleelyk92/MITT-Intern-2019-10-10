@@ -3,28 +3,35 @@
 @{
     ViewBag.Title = "StudentHomePage";
 }
-
+@Styles.Render("~/Content/StudentHomePage.css")
 <h2>StudentHomePage</h2>
 <h1>
     Check out all the internship postings in your field!
 </h1>
-<div style="margin-top:50px;padding:20px;border:1px solid gray;border-radius: 5px;background-color: #f8f8f8;">
-    <div style="margin-bottom:10px;font-size:25px;display:flex;justify-content:space-between">
-        <span>Posts for your Program:</span> 
+<div >
+    @Html.ActionLink("Go to your profile", "StudentProfile", new { id = ViewBag.StudentId })
+    <div class="postingsBackground"style="margin-top:50px;padding:20px;border:1px solid gray;border-radius: 5px;">
+        <div style="display: flex; justify-content: center;">
+            <div class="tableTitle" style="margin-bottom:10px;font-size:25px;">
+                <span>Posts for your Program:</span>
+            </div>
+        </div>
+        
+        <table class="postingsBackground">
+            @foreach (var post in Model)
+            {
+                <tr>
+                    <td>
+                        <a class="noUnderlineHover" href="~/Postings/Details?id=@post.Id">
+                            <div style="border:1px solid lightgrey;border-radius:5px;padding:20px;margin-bottom:15px;background-color: white;" class="pleaseFix">
+                                <h4 class="title">@post.Title</h4>
+                                <p style="color:black;">@post.Content</p>
+                            </div>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </table>
     </div>
-    <table>
-        @foreach (var post in Model)
-        {
-            <tr>
-                <td>
-                    <a class="noUnderlineHover" href="~/Postings/Details?id=@post.Id">
-                        <div style="border:1px solid lightgrey;border-radius:5px;padding:20px;margin-bottom:15px;background-color: white;" class="pleaseFix">
-                            <h4 class="title">@post.Title</h4>
-                            <p style="color:black;">@post.Content</p>
-                        </div>
-                    </a>
-                </td>
-            </tr>
-        }
-    </table>
 </div>
+

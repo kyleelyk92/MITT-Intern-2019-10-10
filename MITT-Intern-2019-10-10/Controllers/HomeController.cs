@@ -14,12 +14,15 @@ namespace MITT_Intern_2019_10_10.Controllers
         public ActionResult Index()
         {
             var userId = User.Identity.GetUserId();
-            
-            if (db.Companies.Find(userId) != null)
+
+            var companyCheck = db.Companies.FirstOrDefault(x => x.Id == userId);
+            var studentCheck = db.Students.FirstOrDefault(y => y.Id == userId);
+
+            if (companyCheck != null)
             {
                 return RedirectToAction("CompanyProfile", "Companies", new { id = userId});
             }
-            else if (db.Students.Find(userId) != null)
+            else if (studentCheck != null)
             {
                 return RedirectToAction("StudentHomePage", "Students", new { });
             }
@@ -27,9 +30,6 @@ namespace MITT_Intern_2019_10_10.Controllers
             {
                 return RedirectToAction("HomePage","Home", new { });
             }
-
-
-
             return View();
         }
         public ActionResult HomePage()

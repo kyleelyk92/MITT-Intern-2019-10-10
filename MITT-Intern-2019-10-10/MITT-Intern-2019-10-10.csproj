@@ -291,6 +291,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Company.cs" />
+    <Compile Include="Models\CustomAuthorize.cs" />
     <Compile Include="Models\Helper.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -312,6 +313,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\HomePageStyle.css" />
+    <Content Include="Content\StudentHomePage.css" />
     <Content Include="Content\StudentProfilePage.css" />
     <Content Include="DefaultImages\avatar1.png" />
     <Content Include="DefaultImages\avatar2.png" />
