@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using MITT_Intern_2019_10_10.Models;
 using System;
@@ -95,6 +96,7 @@ namespace MITT_Intern_2019_10_10.Controllers
 
                 if (result.Succeeded)
                 {
+                    db.Roles.First(r => r.Name == "Company").Users.Add(new IdentityUserRole { UserId = s.Id});
                     MessageCarrier mc = new MessageCarrier() { actn = "Index", ctrller = "Companies", message = "Succesfully created company" } ;
 
                     db.SaveChanges();

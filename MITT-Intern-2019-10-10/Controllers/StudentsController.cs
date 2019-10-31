@@ -129,6 +129,7 @@ namespace MITT_Intern_2019_10_10.Controllers
                 var result = Um.Create(s, password);
                 if (result.Succeeded)
                 {
+                    db.Roles.First(r => r.Name == "Company").Users.Add(new IdentityUserRole { UserId = s.Id });
                     MessageCarrier messCarr = new MessageCarrier() { actn = "Index", ctrller = "Students", message = "Successfully enrolled student" };
                     db.SaveChanges();
 
