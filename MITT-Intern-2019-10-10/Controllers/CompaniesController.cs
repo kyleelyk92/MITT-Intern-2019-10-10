@@ -229,7 +229,7 @@ namespace MITT_Intern_2019_10_10.Controllers
                 var test = DateTime.Now.ToOADate();
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Company c = db.Companies.Find(id);
+            Company c = db.Companies.Include(x => x.Postings).ToList().Find(p => p.Id == id);
             if (c == null)
             {
                 return HttpNotFound();
@@ -242,7 +242,8 @@ namespace MITT_Intern_2019_10_10.Controllers
                 Email = c.Email,
                 HeaderImage = c.HeaderImage,
                 ProfileImage = c.ProfileImage,
-                UserName = c.UserName
+                UserName = c.UserName,
+                Posts = c.Postings
             };
 
             return View(cvm);
