@@ -4,10 +4,10 @@
     ViewBag.Title = "CompanyProfile";
 }
 
-<p style="margin-top:20px;margin-left:10px">
+<p style="margin-top:20px;margin-left:10px;font-size:1.5em">
     @if (ViewBag.CurrentVisitingId == Model.Id)
     {
-        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) <span>|</span>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id })
     }
 </p>
 
@@ -56,7 +56,12 @@
 <div style="margin-top:50px;padding:20px;border:1px solid gray;border-radius: 5px;background-color: #f8f8f8;">
     <div style="margin-bottom:10px;font-size:25px;display:flex;justify-content:space-between">
         <span>Posts:</span>
-        <span>Create a new job post</span>
+        @if (ViewBag.CurrentVisitingId == Model.Id)
+        {
+         <a href="~/Postings/Create">
+            <span>Create a new job post</span>
+         </a>
+        }
     </div>
     <table>
         @foreach (var post in Model.Posts)
