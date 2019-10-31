@@ -48,7 +48,8 @@
         </div>
     </div>
     <div>
-        @Html.ActionLink("Apply to this position!", "ApplyToPost", "Postings", new { userid = User.Identity.GetUserId(), postingId = Model.Id })
+        @Html.ActionLink("Apply to this position!", "ApplyToPosting", "Postings", new { userid = User.Identity.GetUserId(), postingId = Model.Id }, null)
+
     </div>
 </div>
 <p>

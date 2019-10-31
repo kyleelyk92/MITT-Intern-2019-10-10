@@ -5,53 +5,26 @@
 }
 
 <h2>StudentHomePage</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Company.FirstName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Content)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PostingDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ClosingDate)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Company.FirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Content)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PostingDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ClosingDate)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
-
-</table>
+<h1>
+    Check out all the internship postings in your field!
+</h1>
+<div style="margin-top:50px;padding:20px;border:1px solid gray;border-radius: 5px;background-color: #f8f8f8;">
+    <div style="margin-bottom:10px;font-size:25px;display:flex;justify-content:space-between">
+        <span>Posts for your Program:</span> 
+    </div>
+    <table>
+        @foreach (var post in Model)
+        {
+            <tr>
+                <td>
+                    <a class="noUnderlineHover" href="~/Postings/Details?id=@post.Id">
+                        <div style="border:1px solid lightgrey;border-radius:5px;padding:20px;margin-bottom:15px;background-color: white;" class="pleaseFix">
+                            <h4 class="title">@post.Title</h4>
+                            <p style="color:black;">@post.Content</p>
+                        </div>
+                    </a>
+                </td>
+            </tr>
+        }
+    </table>
+</div>

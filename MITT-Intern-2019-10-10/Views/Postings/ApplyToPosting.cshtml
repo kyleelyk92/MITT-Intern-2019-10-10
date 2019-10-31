@@ -1,8 +1,62 @@
 ﻿@model MITT_Intern_2019_10_10.Models.Posting
-
+@using Microsoft.AspNet.Identity;
 @{
     ViewBag.Title = "ApplyToPosting";
 }
 
 <h2>ApplyToPosting</h2>
 
+<h4>Posting</h4>
+<hr />
+<div>
+    <h1>
+        @Html.DisplayFor(model => model.Title)
+    </h1>
+
+    <div style="margin: 20px 0px;">
+        <a href="/Companies/CompanyProfile?id=@Model.Company.Id" style="justify-content:center;display:flex;flex-direction:row;max-width:200px">
+            <img style="max-width:50px" src="~/uploads/@Model.Company.Id/profileImage/@Model.Company.ProfileImage" alt="avatar" />
+            <div style="font-size:20px; margin-left:15px;font-size:25px;display:inline-block;margin: 0 15px">
+                @Html.DisplayFor(model => model.Company.CompanyName)
+            </div>
+        </a>
+    </div>
+
+    <div style="max-width:700px;margin:20px auto">
+        @Html.DisplayFor(model => model.Content)
+    </div>
+
+    <div style="display:flex;flex-direction:row">
+        <div style="margin-right:10px;color:gray">
+            @Html.DisplayNameFor(model => model.PostingDate):
+        </div>
+
+        <div>
+            @Html.DisplayFor(model => model.PostingDate)
+        </div>
+    </div>
+
+    <div>
+        <span>Prefered skills</span>
+        <ul>
+            @foreach (var x in Model.Skills)
+            {
+                <li>@x.Name</li>
+            }
+        </ul>
+    </div>
+</div>
+@using (Html.BeginForm("ApplyToPosting", "Postings", FormMethod.Post))
+{
+    @Html.Hidden("userId", new { userId = ViewBag.StudentId})
+    @Html.Hidden("postingId", new { postingId = Model.Id })
+    <div>
+        <div>
+            Tell them a little bit about yourself!
+        </div>
+        <div>
+            @Html.TextBox("coverLetter")
+        </div>
+    </div>
+    <input type="submit" value="Submit" />
+}
