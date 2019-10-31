@@ -38,7 +38,7 @@ namespace MITT_Intern_2019_10_10.Controllers
         [HttpGet]
         public ActionResult MessagePage(MessageCarrier mc)
         {
-            MessageCarrier m = new MessageCarrier { message = mc.message, ctrller = mc.ctrller, actn = mc.actn};
+            MessageCarrier m = new MessageCarrier { message = mc.message, ctrller = mc.ctrller, actn = mc.actn, UserId = mc.UserId};
             return View(m);
         }
     }
