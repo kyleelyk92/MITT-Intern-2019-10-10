@@ -3,15 +3,16 @@
 @{
     ViewBag.Title = "StudentProfile";
 }
-
-@if (Model.LastName  != null && Model.FirstName != null )
+@Styles.Render("~/Content/StudentProfilePage.css")
+@if (Model.LastName != null && Model.FirstName != null)
 {
-<h2>@Model.FirstName @Model.LastName</h2>
+    <h2>@Model.FirstName @Model.LastName</h2>
 }
 else
 {
     <h2>@Model.UserName</h2>
 }
+@Html.ActionLink("Back to your homepage", "StudentHomePage", "Students", null, null)
 <div id="MainContainer" class="mainContainer">
     <!--Top section will have both images, layered with profile picture on top-->
     <div id="topSection" class="topSection">
@@ -73,7 +74,7 @@ else
                     <li>@skill.Name</li>
                 }
             </ul>
-            @if(User.Identity.GetUserId() == Model.Id)
+            @if (User.Identity.GetUserId() == Model.Id)
             {
                 <div style="display:flex; justify-content:space-between; width: 300px; flex-direction: row;">
                     @Html.ActionLink("Add skills", "AddSkills", new { studentId = Model.Id })
@@ -88,4 +89,5 @@ else
 
 @section Scripts{
     @Styles.Render("~/bundles/StudentProfileStyles")
+
 }

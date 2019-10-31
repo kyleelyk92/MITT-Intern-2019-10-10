@@ -43,22 +43,34 @@ namespace MITT_Intern_2019_10_10.Controllers
         public ActionResult Create()
         {
             ViewBag.Skills = db.Skills.ToList();
+
+            ViewBag.SchoolProgramId = db.Programs.ToList();
             return View();
         }
 
         // POST: Postings/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        //[CustomAuthorize(Roles="Company")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Title,Content,ClosingDate")] Posting posting, int[] skillsToAdd)
+        public ActionResult Create([Bind(Include = "Id,Title,Content,ClosingDate")] Posting posting, int[] skillsToAdd, int SchoolProgramId)
         {
+            var whatis = SchoolProgramId;
 
+            SchoolProgram sp = db.Programs.FirstOrDefault(x => x.Id == SchoolProgramId);
+            //posting needs a school program
             var userId = User.Identity.GetUserId();
             Company company = db.Companies.Find(userId);
 
-            posting.PostingDate = DateTime.Now;
+            if(userId == null)
+            {
+                return RedirectToAction("MessagePage", "Home", new MessageCarrier { message = "You must be signed in as a company to submit a new job posting", actn = "Index", ctrller = "Home" });
+            }
 
+
+            posting.PostingDate = DateTime.Now;
+            posting.SchoolProgram = sp;
             foreach (int skillId in skillsToAdd)
             {
                 Skill skill = db.Skills.Find(skillId);
