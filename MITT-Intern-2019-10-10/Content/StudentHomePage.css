@@ -1,0 +1,21 @@
+﻿body {
+    background-color: #c3e76b;
+}
+/*
+    dark green = 01665e
+    light green = c3e76b
+    teal kind of = 00a88e
+*/
+.postingsContainer {
+    background-color: #01665e;
+    display: flex;
+    justify-content: center;    
+}
+.tableTitle{
+    background-color: #c3e76b;
+    width: 50%;
+    text-align: center;
+}
+.postingsBackground {
+    background-color: #01665e
+}

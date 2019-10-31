@@ -190,6 +190,7 @@ namespace MITT_Intern_2019_10_10.Controllers
             return View(result.Succeeded ? "ConfirmEmail" : "Error");
         }
 
+        [Authorize]
         //
         // GET: /Account/ForgotPassword
         [AllowAnonymous]

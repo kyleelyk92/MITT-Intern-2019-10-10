@@ -79,7 +79,7 @@ namespace MITT_Intern_2019_10_10.Controllers
         }
 
         // GET: Students/Details/5
-
+        //kept this page around for admin usage, they can delete the student and stuff from in here
         [Authorize(Roles="Admin")]
         public ActionResult Details(string id)
         {
@@ -293,33 +293,6 @@ namespace MITT_Intern_2019_10_10.Controllers
             return View(s);
         }
 
-        public ActionResult PracticeFileUpload()
-        {
-            var checkthis = Server.MapPath("~");
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult PracticeFileUpload(HttpPostedFileBase file)
-        {
-            try
-            {
-                if (file != null)
-                {
-                    var user = db.Users.Find(User.Identity.GetUserId());
-                    //this takes a userId, the httppostedbasefile, and the base path of whatever controller you're in
-                    //Helper.SaveFileFromUser(user.Id, file, Server.MapPath("~"));
-                }
-                return RedirectToAction("Index", "Students");
-            }
-            catch
-            {
-                return RedirectToAction("MessagePage", "Home", new { Error = "Error uploading file, try again" });
-            }
-        }
-
-
-
         //TODO: figure out how you want to add skills to somebody
         public ActionResult AddSkills(string studentId)
         {
@@ -337,8 +310,6 @@ namespace MITT_Intern_2019_10_10.Controllers
                     ViewBag.Skills.Add(sk);
                 }
             }
-            
-
             return View(student);
         }
         [HttpPost]
@@ -448,7 +419,7 @@ namespace MITT_Intern_2019_10_10.Controllers
         public ActionResult AddResume(string studentId, HttpPostedFileBase resume)
         {
             string filepath = Helper.SaveFileFromUser(studentId, resume, Server.MapPath("~"), "");
-            var student = db.Students.Find(studentId);
+            var student = db.Students.FirstOrDefault(x => x.Id == studentId);
             student.HasResume = true;
             student.ResumeLink = filepath;
 
@@ -471,7 +442,7 @@ namespace MITT_Intern_2019_10_10.Controllers
             
             return RedirectToAction("MessagePage", "Home", new MessageCarrier() {ctrller = "Students", actn="Edit", UserId = studentId, message="Succesfully uploaded resume" });
         }
-
+        [CustomAuthorize]
         public ActionResult StudentHomePage()
         {
             var userId = User.Identity.GetUserId();
@@ -481,7 +452,7 @@ namespace MITT_Intern_2019_10_10.Controllers
             {
                 Student student = db.Students.Find(userId);
                 ViewBag.StudentFirstName = student.FirstName;
-
+                ViewBag.StudentId = student.Id;
                 if (user.SchoolProgram != null)
                 {
                     var sp = user.SchoolProgram;
