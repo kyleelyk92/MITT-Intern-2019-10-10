@@ -17,15 +17,15 @@ namespace MITT_Intern_2019_10_10.Controllers
             
             if (db.Companies.Find(userId) != null)
             {
-                RedirectToAction("CompanyProfile", "Companies", new { id = userId});
+                return RedirectToAction("CompanyProfile", "Companies", new { id = userId});
             }
             else if (db.Students.Find(userId) != null)
             {
-                RedirectToAction("StudentHomePage", "Students", new { });
+                return RedirectToAction("StudentHomePage", "Students", new { });
             }
             else if (userId == null)
             {
-                RedirectToAction("HomePage","Home", new { });
+                return RedirectToAction("HomePage","Home", new { });
             }
 
 
