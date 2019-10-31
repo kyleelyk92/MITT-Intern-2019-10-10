@@ -124,5 +124,26 @@ namespace MITT_Intern_2019_10_10.Controllers
             }
             base.Dispose(disposing);
         }
+
+        //public ActionResult ApplyToPosting(string userId, string postingId)
+        //{
+        //    var student = db.Students.Find(userId);
+        //    //if user is not a student they get kicked back to the posting index
+        //    if(student == null)
+        //    {
+        //        return RedirectToAction("Index");
+        //    }
+
+        //    //this is the page to load up and make an email
+        //}
+        //[HttpPost]
+        //public ActionResult ApplyToPosting(string userId, int postingId, string coverLetterContent)
+        //{
+        //    var student = db.Students.Find(userId);
+        //    Posting posting = db.Postings.Include(x => x.Company).FirstOrDefault(post => post.Id == postingId);
+
+        //    Company company = posting.Company;
+
+        //}
     }
 }

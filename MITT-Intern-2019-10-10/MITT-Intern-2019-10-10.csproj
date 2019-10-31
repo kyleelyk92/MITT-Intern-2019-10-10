@@ -413,6 +413,7 @@
     <Content Include="Views\Postings\Index.cshtml" />
     <Content Include="Views\Students\AddResume.cshtml" />
     <Content Include="Views\Students\StudentHomePage.cshtml" />
+    <Content Include="Views\Postings\ApplyToPosting.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\App_LocalResources\" />

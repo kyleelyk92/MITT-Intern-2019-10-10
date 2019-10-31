@@ -464,7 +464,6 @@ namespace MITT_Intern_2019_10_10.Controllers
                     }
                 }
             }
-
             db.SaveChanges();
             
             return RedirectToAction("MessagePage", "Home", new MessageCarrier() {ctrller = "Students", actn="Edit", UserId = studentId, message="Succesfully uploaded resume" });
@@ -494,9 +493,6 @@ namespace MITT_Intern_2019_10_10.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
             }
-
-            
-            
         }
     }
     
