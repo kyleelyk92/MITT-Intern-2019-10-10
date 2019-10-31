@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using MITT_Intern_2019_10_10.Models;
 
 namespace MITT_Intern_2019_10_10.Controllers
@@ -47,13 +48,25 @@ namespace MITT_Intern_2019_10_10.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Title,Content,PostingDate,ClosingDate")] Posting posting)
+        public ActionResult Create([Bind(Include = "Id,Title,Content,ClosingDate")] Posting posting, int[] skillsToAdd)
         {
+
+            var userId = User.Identity.GetUserId();
+            Company company = db.Companies.Find(userId);
+
+            posting.PostingDate = DateTime.Now;
+
+            foreach (int skillId in skillsToAdd)
+            {
+                Skill skill = db.Skills.Find(skillId);
+                posting.Skills.Add(skill);
+            }
+
             if (ModelState.IsValid)
             {
-                db.Postings.Add(posting);
+                company.Postings.Add(posting);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", new { id = posting.Id});
             }
 
             return View(posting);

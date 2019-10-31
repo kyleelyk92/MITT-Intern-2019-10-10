@@ -28,11 +28,6 @@ namespace MITT_Intern_2019_10_10.Migrations
             var ajax = new Skill() { Name = "AJAX" };
 
             db.Skills.AddOrUpdate(s => s.Name,
-                js,
-                react,
-                html5,
-                sass,
-                ajax,
                 new Skill() { Name = "CSS3" },
                 new Skill() { Name = "Git" },
                 new Skill() { Name = "ASP.NET C#" },
@@ -69,6 +64,8 @@ namespace MITT_Intern_2019_10_10.Migrations
 
                 var bold = new Company() { UserName = "BoldContentBS", Email = "BOLD@bold.com" };
 
+                usermanager.Create(bold, "Password1!");
+
                 var post = new Posting()
                 {
                     Title = "Front-end Javasript dev wanted",
@@ -85,8 +82,6 @@ namespace MITT_Intern_2019_10_10.Migrations
                 post.Skills.Add(ajax);
 
                 bold.Postings.Add(post);
-
-                usermanager.Create(bold, "Password1!");
 
                 
             }

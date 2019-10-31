@@ -30,5 +30,6 @@ namespace MITT_Intern_2019_10_10.Models
         public string ProfileImage { get; set; }
         public string HeaderImage { get; set; }
         public string Bio { get; set; }
+        public ICollection<Posting> Posts { get; set; }
     }
 }

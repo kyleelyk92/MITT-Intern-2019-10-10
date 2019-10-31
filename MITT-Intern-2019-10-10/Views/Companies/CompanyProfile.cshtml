@@ -7,7 +7,7 @@
 <p style="margin-top:20px;margin-left:10px">
     @if (ViewBag.CurrentVisitingId == Model.Id)
     {
-        @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) <span>|</span>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) <span>|</span>
     }
 </p>
 
@@ -59,31 +59,18 @@
         <span>Create a new job post</span>
     </div>
     <table>
-        <tr>
-            <td>
-                <a class="noUnderlineHover" href="~/Views/Home/Index.cshtml">
-                    <div style="border:1px solid lightgrey;border-radius:5px;padding:20px;margin-bottom:15px;background-color: white;" class="pleaseFix">
-                        <h4 class="title">Post title</h4>
-                        <p style="color:black;">This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. </p>
-                    </div>
-                </a>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <div style="border:1px solid lightgrey;border-radius:4px;padding:20px;margin-bottom:15px">
-                    <h4>Post title</h4>
-                    <p>This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. </p>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <div style="border:1px solid lightgrey;border-radius:4px;padding:20px;margin-bottom:15px">
-                    <h4>Post title</h4>
-                    <p>This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. This is a very long post description. </p>
-                </div>
-            </td>
-        </tr>
+        @foreach (var post in Model.Posts)
+        {
+            <tr>
+                <td>
+                    <a class="noUnderlineHover" href="~/Postings/Details?id=@post.Id">
+                        <div style="border:1px solid lightgrey;border-radius:5px;padding:20px;margin-bottom:15px;background-color: white;" class="pleaseFix">
+                            <h4 class="title">@post.Title</h4>
+                            <p style="color:black;">@post.Content</p>
+                        </div>
+                    </a>
+                </td>
+            </tr>
+        }
     </table>
 </div>
