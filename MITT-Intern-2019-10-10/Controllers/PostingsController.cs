@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity;
 using MITT_Intern_2019_10_10.Models;
 using System.Net.Mail;
 using System.IO;
+using System.Configuration;
 
 
 namespace MITT_Intern_2019_10_10.Controllers
@@ -198,7 +199,7 @@ namespace MITT_Intern_2019_10_10.Controllers
                     mail.Attachments.Add(attachment);
 
                     //i don't have an smtp server
-                    var credentials = new NetworkCredential("kyleelyk1992@gmail.com", "Starcraft2!");
+                    var credentials = new NetworkCredential("kyleelyk1992@gmail.com", ConfigurationManager.AppSettings["emailPasswordForSmtp"]);
                     // Smtp client
                     var smtp = new SmtpClient()
                     {

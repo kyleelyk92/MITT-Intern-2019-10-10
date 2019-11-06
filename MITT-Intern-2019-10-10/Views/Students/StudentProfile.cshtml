@@ -11,6 +11,12 @@
 else
 {
     <h2>@Model.UserName</h2>
+
+}
+@if (User.Identity.GetUserId() == Model.Id)
+{
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id })
+    <br />
 }
 @Html.ActionLink("Back to your homepage", "StudentHomePage", "Students", null, null)
 <div id="MainContainer" class="mainContainer">

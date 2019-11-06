@@ -10,7 +10,7 @@
     width: 100%;
     height: 30vh;
     height: 100vh;
-    background-image: linear-gradient(to bottom right, #01665e, #c3e76b);
+    background-image: linear-gradient(to bottom right, #01665e,white);
 }
 
 .topSection {
